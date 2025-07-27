@@ -9,4 +9,13 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  get "register", to: "pages#register"
+  get "guide", to: "pages#guide"
+  get "profile-edit", to: "pages#profile-editor"
+  get "profile", to: "pages#profile"
+  get "outfit/new", to: "outfits#new"
+  post "outfit", to: "outfits#create"
+  get "validation", to: "pages#validation"
+  get "outfit/id", to: "outfits#showpage"
 end
