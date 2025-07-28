@@ -3,4 +3,17 @@ class PagesController < ApplicationController
 
   def home
   end
+
+  def register
+  end
+
+  def guide
+  end
+
+  def outfit
+  end
+
+  def validation
+  end
+
 end

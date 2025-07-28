@@ -17,5 +17,6 @@ Rails.application.routes.draw do
   get "outfit/new", to: "outfits#new"
   post "outfit", to: "outfits#create"
   get "validation", to: "pages#validation"
-  get "outfit/id", to: "outfits#showpage"
+  get "outfit/:id", to: "outfits#showpage"
+
 end
