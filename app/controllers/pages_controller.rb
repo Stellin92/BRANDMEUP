@@ -16,4 +16,7 @@ class PagesController < ApplicationController
   def validation
   end
 
+  def profile
+  end
+
 end

@@ -18,7 +18,7 @@
             <%= link_to "Profile", "/profile", class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Discovery","#", class: "nav-link"%>
+            <%= link_to "Guide","/guide", class: "nav-link"%>
           </li>
           <li class="nav-item dropdown">
           <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -33,6 +33,7 @@
         <% else %>
           <li class="nav-item">
             <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+            <%= link_to "Sign up", "/users/sign_up", class: "nav-link" %>
           </li>
         <% end %>
       </ul>
