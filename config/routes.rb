@@ -12,11 +12,13 @@ Rails.application.routes.draw do
 
   get "register", to: "pages#register"
   get "guide", to: "pages#guide"
-  get "profile-edit", to: "pages#profile-editor"
-  get "profile", to: "pages#profile"
+  get "users/:id/edit", to: "users#edit"
+  get "users/:id", to: "users#show"
+  patch "users/:id/update", to: "users#update"
   get "outfit/new", to: "outfits#new"
   post "outfit", to: "outfits#create"
+  patch "outfit/:id/update", to: "outfits#update"
+  get "outfit/:id", to: "outfits#show"
   get "validation", to: "pages#validation"
-  get "outfit/:id", to: "outfits#showpage"
 
 end
