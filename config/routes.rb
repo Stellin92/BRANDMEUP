@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
+  resources :users, only: [:edit, :update]
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -10,11 +11,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  get "register", to: "pages#register"
   get "guide", to: "pages#guide"
-  get "users/:id/edit", to: "users#edit"
-  get "users/:id", to: "users#show"
-  patch "users/:id/update", to: "users#update"
+  get "users/edit", to: "users#edit"
+  get "users/show", to: "users#show"
+  patch "users/update", to: "users#update"
   get "outfit/new", to: "outfits#new"
   post "outfit", to: "outfits#create"
   patch "outfit/:id/update", to: "outfits#update"

@@ -7,10 +7,26 @@ class UserPolicy < ApplicationPolicy
 
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!
-    # def resolve
-    #   scope.all
-    # end
+    def resolve
+      scope.all
+    end
   end
+
+  def permitted_attributes
+    if user.admin? || user.owner_of?(post)
+      [:talent, :bio, :avatar_url, :values]
+    else
+      [:tag_list]
+    end
+  end
+
+  # def permitted_attributes_for_edit
+  #   [:talent, :bio, :avatar_url, :values]
+  # end
+
+  # def permitted_attributes_for_update
+  #   [:talent, :bio, :avatar_url, :values]
+  # end
 
   def show?
     true

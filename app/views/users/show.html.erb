@@ -1,2 +1,40 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<!-- >
+  Tasks to do:
+  1. Page when the user has filled his profile
+  2. Page when he hasn't with CTA to do it
+  3. Create the form to finishing the profile
+  4. But to refresh the profile page
+<-->
+<img src="<%= @user.avatar_url%>" alt="Default avatar" class="avatar-bordered">
+
+<div class="banner" style="background-color: #BC63F8;">
+  <div class="container">
+    <h1><%= @user.id %>'s profile</h1>
+    <p><%= @user.bio%></p>
+    <div class="ul">
+      <div class="li">Talent: <%= @user.talent %></div>
+      <div class="li">Values: <%= @user.values %></div>
+    </div>
+  </div>
+</div>
+
+<% if @user.has_outfit? %>
+  <h2>The outfits</h2>
+  <% @user.outfits.each do |outfit| %>
+    <div class="card-product">
+      <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
+      <div class="card-product-infos">
+        <h2><%= outfit.title %></h2>
+        <p>Product description with <strong>relevant info</strong> only.</p>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <div class="banner" style="background-color: #ef49d6ff;">
+    <div class="container">
+      <h2>No outfit yet ?</h2>
+      <p>Your profile feels naked without an outfit to wear. Let's change that now!</p>
+      <%= link_to "outfits/new", class: "btn btn-flat"%>
+    </div>
+  </div>
+<% end %>

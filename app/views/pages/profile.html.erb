@@ -1,0 +1,35 @@
+<%= form_with model: @user, local: true do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :bio %>
+    <%= f.text_area :bio %>
+  </div>
+
+  <div>
+    <%= f.label :talent %>
+    <%= f.text_area :talent %>
+  </div>
+
+  <div>
+    <%= f.label :avatar_url %>
+    <%= f.text_area :avatar_url %>
+  </div>
+
+  <div>
+    <%= f.label :values %>
+    <%= f.text_area :values %>
+  </div>
+
+  <%= f.submit "Enregistrer les modifications" %>
+<% end %>
+
+<%= link_to "Back", :back %>

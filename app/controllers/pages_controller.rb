@@ -4,9 +4,6 @@ class PagesController < ApplicationController
   def home
   end
 
-  def register
-  end
-
   def guide
   end
 
@@ -14,6 +11,9 @@ class PagesController < ApplicationController
   end
 
   def validation
+  end
+
+  def profile
   end
 
 end
