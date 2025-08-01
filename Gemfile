@@ -29,6 +29,9 @@ gem "jbuilder"
 # Use Pundit for authorization
 gem "pundit"
 
+# Use Cloudinary for image management
+gem "cloudinary"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
