@@ -11,3 +11,12 @@
 
 <h1>Brand your Identity Up</h1>
 <p>Your profile is not complete. Please fill in this to make it shine like it deserves!</p>
+<%= simple_form_for(current_user) do |f| %>
+  <%= f.input :username %>
+  <%= f.input :bio %>
+  <%= f.input :talent %>
+  <%= f.input :values %>
+  <%= f.input :values %>
+  <%= f.input :avatar_url %>
+  <%= f.button :submit, "Edit User" %>
+<% end %>

@@ -33,10 +33,10 @@ class UserPolicy < ApplicationPolicy
   end
 
   def edit?
-    record.user == user
+    user == record
   end
 
   def update?
-    record.user == user
+    user == record
   end
 end

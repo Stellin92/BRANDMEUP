@@ -5,29 +5,31 @@
   3. Create the form to finishing the profile
   4. But to refresh the profile page
 <-->
-<img src="<%= @user.avatar_url%>" alt="Default avatar" class="avatar-bordered">
+<img src="<%= current_user.avatar_url%>" alt="Default avatar" class="avatar-bordered">
 
 <div class="banner" style="background-color: #BC63F8;">
   <div class="container">
-    <h1><%= @user.id %>'s profile</h1>
-    <p><%= @user.bio%></p>
+    <h1><%= current_user.username %>'s profile</h1>
+    <p><%= current_user.bio%></p>
     <div class="ul">
-      <div class="li">Talent: <%= @user.talent %></div>
-      <div class="li">Values: <%= @user.values %></div>
+      <div class="li">Talent: <%= current_user.talent %></div>
+      <div class="li">Values: <%= current_user.values %></div>
     </div>
   </div>
 </div>
 
-<% if @user.has_outfit? %>
+<% if current_user.has_outfit? %>
   <h2>The outfits</h2>
-  <% @user.outfits.each do |outfit| %>
+  <% current_user.outfits.each do |outfit| %>
     <div class="card-product">
-      <img src="<%= outfit.outfit_image_url %>" />
-      <div class="card-product-infos">
-        <h2><%= outfit.title %></h2>
-        <p><%= outfit.description %></p>
-        <p><%= outfit.color_set %></p>
-      </div>
+      <%= link_to outfit_path(outfit) do %>
+        <img src="<%= outfit.outfit_image_url %>" />
+        <div class="card-product-infos">
+          <h2><%= outfit.title %></h2>
+          <p><%= outfit.description %></p>
+          <p><%= outfit.color_set %></p>
+        </div>
+      <% end %>
     </div>
   <% end %>
 <% else %>

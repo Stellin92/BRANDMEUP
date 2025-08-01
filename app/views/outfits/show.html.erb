@@ -1,0 +1,24 @@
+<div class="banner" style="background-image: url(<%= @outfit.outfit_image_url %>);">
+  <div class="container">
+    <h1><%= @outfit.title %></h1>
+  </div>
+</div>
+<!-- > Bio <-->
+<div class="banner" style="background-color: #BC63F8;">
+  <div class="container">
+    <h1><%= @outfit.description %></h1>
+  </div>
+</div>
+<!-- > Palette color <-->
+<div class="banner" style="background-color: #BC63F8);">
+  <div class="container">
+    <h1><%= @outfit.color_set %></h1>
+  </div>
+</div>
+<!-- > Item list <-->
+<div class="banner" style="background-color: #BC63F8;">
+  <div class="container">
+    <h1><%= @outfit.user_id %></h1>
+  </div>
+</div>
+<%= link_to "Back to profile", user_path(@outfit.user), class: "btn btn-flat" %>

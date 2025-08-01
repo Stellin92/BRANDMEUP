@@ -1,14 +1,9 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :set_user, only: [:show, :edit, :update]
-  before_action :authorize_user!, only: [:edit, :update]
 
   def users
     @users = User.all
-  end
-
-  def set_user
-    @user = current_user
   end
 
   def show
@@ -22,17 +17,20 @@ class UsersController < ApplicationController
 
   def update
     authorize @user
-    @post = Post.find(params[:id])
-    if @post.update(post_params)
-      redirect_to @post
+    if @user.update(user_params)
+      redirect_to user_path(@user), notice: "Profile updated!"
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   private
 
-  def post_params
-    params.require(:post).permit(policy(@post).permitted_attributes)
+  def set_user
+      @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:bio, :talent, :values, :avatar_url, :username)
   end
 end

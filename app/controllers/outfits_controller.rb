@@ -9,29 +9,10 @@ class OutfitsController < ApplicationController
     skip_policy_scope
   end
 
-  def create
-    @outfit = Outfit.new
+    def show
+    @outfit = Outfit.find(params[:id])
     authorize @outfit
     skip_policy_scope
-
-    @outfit.assign_attributes(outfit_params)
-
-    @outfit.user = current_user
-    if @outfit.save
-      redirect_to outfit_path(@outfit), notice: "Outfit created successfully."
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
-
-   def set_user
-    @user = current_user
-  end
-
-  def show
-    authorize @outfit
-    skip_policy_scope
-    @outfit = Outfit.find[params[:id]]
   end
 
   def edit
@@ -50,6 +31,25 @@ class OutfitsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def create
+    @outfit = Outfit.new
+    authorize @outfit
+    skip_policy_scope
+
+    @outfit.assign_attributes(outfit_params)
+
+    @outfit.user = current_user
+    if @outfit.save
+      redirect_to outfit_path(@outfit), notice: "Outfit created successfully."
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+   def set_user
+    @user = current_user
   end
 
   private
