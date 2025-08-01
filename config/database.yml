@@ -79,6 +79,4 @@ test:
 #
 production:
   <<: *default
-  database: brandmeup_production
-  username: brandmeup
-  password: <%= ENV["BRANDMEUP_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
