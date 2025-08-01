@@ -2,7 +2,6 @@
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= f.error_notification %>
-
   <div class="form-inputs">
     <%= f.input :email, required: true, autofocus: true %>
 
@@ -21,6 +20,18 @@
                 hint: "we need your current password to confirm your changes",
                 required: true,
                 input_html: { autocomplete: "current-password" } %>
+    <%= f.input :talent,
+                required: false,
+                input_html: { autocomplete: "new-talent" } %>
+    <%= f.input :avatar_url,
+                required: false,
+                input_html: { autocomplete: "new-avatar" } %>
+    <%= f.input :bio,
+                required: false,
+                input_html: { autocomplete: "new-bio" } %>
+    <%= f.input :values,
+                required: false,
+                input_html: { autocomplete: "new-values" } %>
   </div>
 
   <div class="form-actions">
