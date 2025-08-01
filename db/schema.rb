@@ -43,6 +43,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_25_155638) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "username"
     t.string "talent"
     t.string "avatar_url"
     t.string "bio"

@@ -22,10 +22,11 @@
   <h2>The outfits</h2>
   <% @user.outfits.each do |outfit| %>
     <div class="card-product">
-      <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
+      <img src="<%= outfit.outfit_image_url %>" />
       <div class="card-product-infos">
         <h2><%= outfit.title %></h2>
-        <p>Product description with <strong>relevant info</strong> only.</p>
+        <p><%= outfit.description %></p>
+        <p><%= outfit.color_set %></p>
       </div>
     </div>
   <% end %>
@@ -34,7 +35,7 @@
     <div class="container">
       <h2>No outfit yet ?</h2>
       <p>Your profile feels naked without an outfit to wear. Let's change that now!</p>
-      <%= link_to "outfits/new", class: "btn btn-flat"%>
+      <%= link_to "Outfits Creator", "/outfits/new", class: "btn btn-flat"%>
     </div>
   </div>
 <% end %>

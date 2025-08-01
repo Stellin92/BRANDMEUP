@@ -1,0 +1,11 @@
+<h1>Outfit Crafter</h1>
+<%= simple_form_for(@outfit) do |f| %>
+  <%= f.input :title %>
+  <%= f.input :description %>
+  <%= f.input :style %>
+  <%= f.input :color_set %>
+  <%= f.input :goal %>
+  <%= f.input :outfit_image_url %>
+  <%= f.input :items %>
+  <%= f.button :submit, "Create Outfit" %>
+<% end %>
