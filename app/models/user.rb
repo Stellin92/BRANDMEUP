@@ -6,4 +6,12 @@ class User < ApplicationRecord
 
   has_many :outfits, dependent: :destroy
   has_many :feedbacks, dependent: :destroy
+
+  # has_outfits? method
+  # This method checks if the user has at least one outfit and return a boolean
+
+  def has_outfit?
+    result = self.outfits.length > 0 ? true : false
+  end
+
 end
