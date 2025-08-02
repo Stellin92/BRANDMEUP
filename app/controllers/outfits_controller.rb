@@ -1,7 +1,6 @@
 class OutfitsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  before_action :set_user, only: [:show, :edit, :update]
-  before_action :authorize_user!, only: [:edit, :update]
+  before_action :set_outfit, only: [:show, :edit, :update]
 
   def new
     @outfit = Outfit.new
@@ -10,7 +9,6 @@ class OutfitsController < ApplicationController
   end
 
     def show
-    @outfit = Outfit.find(params[:id])
     authorize @outfit
     skip_policy_scope
   end
@@ -25,11 +23,10 @@ class OutfitsController < ApplicationController
 
   def update
     authorize @outfit
-    @post = Post.find(params[:id])
-    if @post.update(outfit_params)
-      redirect_to @post
+    if @outfit.update(outfit_params)
+      redirect_to outfit_path(@outfit), notice: "Profile updated!"
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -48,14 +45,13 @@ class OutfitsController < ApplicationController
     end
   end
 
-   def set_user
-    @user = current_user
+  def set_outfit
+    @outfit = Outfit.find(params[:id])
   end
 
   private
 
   def outfit_params
-    attrs = action_name == "create" ? policy(@outfit).permitted_attributes_for_create : policy(@outfit).permitted_attributes_for_update
-    params.require(:outfit).permit(attrs)
+    params.require(:outfit).permit(:title, :description, :style, :color_set, :goal, :outfit_image_url, :items)
   end
 end

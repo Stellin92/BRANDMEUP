@@ -1,4 +1,4 @@
-class OutfitPolicy < ApplicationPolicy
+class FeedbackPolicy < ApplicationPolicy
   # NOTE: Up to Pundit v2.3.1, the inheritance was declared as
   # `Scope < Scope` rather than `Scope < ApplicationPolicy::Scope`.
   # In most cases the behavior will be identical, but if updating existing
@@ -7,14 +7,14 @@ class OutfitPolicy < ApplicationPolicy
 
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!
-    def resolve
-      scope.all
-    end
+    # def resolve
+    #   scope.all
+    # end
   end
 
-  def permitted_attributes
-    if user.admin? || user.owner_of?(post)
-      [:title, :description, :style, :color_set, :goal, :outfit_image_url, :items]
+   def permitted_attributes
+    if user.admin? || user == record.user
+      [:score, :comment]
     else
       [:tag_list]
     end

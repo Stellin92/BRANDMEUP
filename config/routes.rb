@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :users, only: [:show, :edit, :update]
-  resources :outfits
+  resources :outfits do
+    resources :feedbacks, only: [:new, :create, :show, :edit, :update]
+  end
+
+  resources :feedbacks, only: [:show, :edit, :update, :destroy]
+
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
