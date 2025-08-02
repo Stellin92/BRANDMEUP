@@ -10,8 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_02_115607) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "feedbacks", force: :cascade do |t|
+    t.integer "score"
+    t.string "comment"
+    t.bigint "user_id", null: false
+    t.bigint "outfit_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["outfit_id"], name: "index_feedbacks_on_outfit_id"
+    t.index ["user_id"], name: "index_feedbacks_on_user_id"
+  end
+
+  create_table "outfits", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.boolean "public"
+    t.string "style"
+    t.string "goal"
+    t.string "outfit_image_url"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_outfits_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "username"
+    t.string "talent"
+    t.string "avatar_url"
+    t.string "bio"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "values", default: [], array: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  add_foreign_key "feedbacks", "outfits"
+  add_foreign_key "feedbacks", "users"
+  add_foreign_key "outfits", "users"
 end

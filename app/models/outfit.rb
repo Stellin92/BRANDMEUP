@@ -1,4 +1,4 @@
 class Outfit < ApplicationRecord
-  has_many :feedbacks
   belongs_to :user
+  has_many :feedbacks, dependent: :destroy
 end
