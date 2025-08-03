@@ -52,6 +52,13 @@ class OutfitsController < ApplicationController
   private
 
   def outfit_params
-    params.require(:outfit).permit(:title, :description, :style, :color_set, :goal, :outfit_image_url, :items)
+    params.require(:outfit).permit(:title, :description, :style, :goal, :outfit_image_url, items_list: [], color_set: [])
+          .tap do |outfit_params|
+            %i[color_set items_list].each do |field|
+              if outfit_params[field].is_a?(String)
+                outfit_params[field] = outfit_params[field].split(',').map(&:strip)
+              end
+            end
+        end
   end
 end

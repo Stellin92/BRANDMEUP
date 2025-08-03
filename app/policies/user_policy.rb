@@ -14,7 +14,7 @@ class UserPolicy < ApplicationPolicy
 
   def permitted_attributes
     if user.admin? || user.owner_of?(post)
-      [:talent, :bio, :avatar_url, :values]
+      [:bio, :talent, :avatar_url, :username, :photo, values: []]
     else
       [:tag_list]
     end

@@ -10,7 +10,27 @@
   </div>
 </div>
 <!-- > Palette color to set with the array <-->
+<div class="banner" style="background-color: #fbf4f4ff;">
+  <div class="container">
+    <h2>Outfit Color Set</h2>
+    <ul>
+      <% @outfit.color_set.each do |color|%>
+        <li style="background-color:<%= color %>;"></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
 <!-- > Item list <-->
+<div class="banner" style="background-color: #fbf4f4ff;">
+  <div class="container">
+    <h2>Outfit Items list</h2>
+    <ul>
+      <% @outfit.items_list.each do |item|%>
+        <li><%= item %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
 <div class="banner" style="background-color: #BC63F8;">
   <div class="container">
     <h1><%= @outfit.user_id %></h1>

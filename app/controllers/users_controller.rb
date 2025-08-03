@@ -31,6 +31,13 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:bio, :talent, :values, :avatar_url, :username, :photo)
+    params.require(:user).permit(:bio, :talent, :avatar_url, :username, :photo, values: [])
+      .tap do |user_params|
+        %i[values].each do |field|
+          if user_params[field].is_a?(String)
+            user_params[field] = user_params[field].split(',').map(&:strip)
+          end
+        end
+      end
   end
 end

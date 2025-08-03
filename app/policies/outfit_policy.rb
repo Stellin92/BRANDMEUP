@@ -14,7 +14,7 @@ class OutfitPolicy < ApplicationPolicy
 
   def permitted_attributes
     if user.admin? || user.owner_of?(post)
-      [:title, :description, :style, :color_set, :goal, :outfit_image_url, :items]
+      [:title, :description, :style, :goal, :outfit_image_url, items_list: [], color_set: []]
     else
       [:tag_list]
     end

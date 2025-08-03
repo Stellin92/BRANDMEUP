@@ -16,7 +16,13 @@
     <p><%= current_user.bio%></p>
     <div class="ul">
       <div class="li">Talent: <%= current_user.talent %></div>
-      <div class="li">Values: <%= current_user.values %></div>
+      <div class="li">Values:
+        <ul>
+          <% @user.values.each do |value|%>
+          <li><%= value %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
