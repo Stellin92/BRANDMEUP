@@ -2,6 +2,10 @@ class OutfitsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :set_outfit, only: [:show, :edit, :update]
 
+  def outfits
+    @outfit = Outfit.all
+  end
+
   def new
     @outfit = Outfit.new
     authorize @outfit

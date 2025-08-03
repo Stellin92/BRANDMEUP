@@ -18,6 +18,6 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   get "guide", to: "pages#guide"
-  get "validation", to: "pages#validation"
+  get "discovery", to: "pages#discovery"
 
 end

@@ -1,10 +1,3 @@
-<!-- >
-  Tasks to do:
-  1. Page when the user has filled his profile
-  2. Page when he hasn't with CTA to do it
-  3. Create the form to finishing the profile
-  4. But to refresh the profile page
-<-->
 <% if @user.photo.key %>
   <%= cl_image_tag @user.photo.key, height: 300, width: 400, crop: :fill %>
 <% else %>
@@ -12,10 +5,10 @@
 <% end %>
 <div class="banner" style="background-color: #BC63F8;">
   <div class="container">
-    <h1><%= current_user.username %>'s profile</h1>
-    <p><%= current_user.bio%></p>
+    <h1><%= @user.username %>'s profile</h1>
+    <p><%= @user.bio%></p>
     <div class="ul">
-      <div class="li">Talent: <%= current_user.talent %></div>
+      <div class="li">Talent: <%= @user.talent %></div>
       <div class="li">Values:
         <ul>
           <% @user.values.each do |value|%>
@@ -24,19 +17,25 @@
         </ul>
       </div>
     </div>
+    <% if current_user == @user %>
+    <% else%>
+            <%= link_to "Send a message", user_path(@user), class: "btn btn-flat"%>
+    <% end %>
   </div>
 </div>
 
-<% if current_user.has_outfit? %>
+<% if @user.has_outfit? %>
   <h2>The outfits</h2>
-  <% current_user.outfits.each do |outfit| %>
+  <% @user.outfits.each do |outfit| %>
     <div class="card-product">
       <%= link_to outfit_path(outfit) do %>
         <img src="<%= outfit.outfit_image_url %>" />
         <div class="card-product-infos">
           <h2><%= outfit.title %></h2>
           <p><%= outfit.description %></p>
-          <%= link_to "Edit", edit_outfit_path(outfit), class: "btn btn-flat"%>
+          <% if current_user == @user %>
+            <%= link_to "Edit", edit_outfit_path(outfit), class: "btn btn-flat"%>
+          <% end %>
         </div>
       <% end %>
     </div>

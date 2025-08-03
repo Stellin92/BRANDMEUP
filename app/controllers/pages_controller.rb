@@ -10,10 +10,7 @@ class PagesController < ApplicationController
   def outfit
   end
 
-  def validation
-  end
-
-  def profile
+  def discovery
   end
 
 end
