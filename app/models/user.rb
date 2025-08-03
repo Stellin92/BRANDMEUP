@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_many :outfits, dependent: :destroy
   has_many :feedbacks, dependent: :destroy
-
+  has_one_attached :photo
   # has_outfits? method
   # This method checks if the user has at least one outfit and return a boolean
 
