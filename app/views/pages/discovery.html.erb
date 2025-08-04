@@ -1,0 +1,23 @@
+<div class="banner" style="background-color: #BC63F8;">
+  <div class="container">
+    <h1>Discovery</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et voluptatem totam eaque? Soluta, blanditiis ipsam rem magni et recusandae quidem perferendis. Optio sed repudiandae cum rerum alias nobis cupiditate. Ipsum?</p>
+  </div>
+</div>
+<div class="users-display">
+  <% User.all.each do |user| %>
+    <div class="card-product">
+      <%= link_to user_path(user) do %>
+        <% if user.photo.key %>
+          <%= cl_image_tag user.photo.key, height: 75, width: 100, crop: :fill %>
+        <% else %>
+          <%= cl_image_tag("0k3y4rlo4x8yuo8xz8u98fpot0b1", height: 75, width: 100, crop: :fill)%>
+        <% end %>
+        <div class="card-product-infos">
+          <h2><%= user.username %></h2>
+          <p><%= user.bio %></p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

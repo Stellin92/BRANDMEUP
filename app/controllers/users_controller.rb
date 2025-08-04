@@ -6,8 +6,15 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def inbox
+    @user = User.find(params[:id])
+    @chats = Chat.where("user_id = :id OR partner_id = :id", id: @user.id)
+    authorize @user
+  end
+
   def show
     authorize @user
+    @chat = Chat.new
     skip_policy_scope
   end
 
@@ -24,6 +31,10 @@ class UsersController < ApplicationController
     end
   end
 
+  # def new_chat
+  #   @chat = Chat.new
+  # end
+
   private
 
   def set_user
@@ -31,6 +42,13 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:bio, :talent, :values, :avatar_url, :username)
+    params.require(:user).permit(:bio, :talent, :avatar_url, :username, :photo, :inbox, values: [])
+      .tap do |user_params|
+        %i[values].each do |field|
+          if user_params[field].is_a?(String)
+            user_params[field] = user_params[field].split(',').map(&:strip)
+          end
+        end
+      end
   end
 end

@@ -1,7 +1,20 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :users
-  resources :outfits
+  resources :users, only: [:show, :edit, :update] do
+    member do
+      get :inbox
+    end
+    resources :chats, only: [:create, :show, :destroy] do
+      resources :messages, only: :create
+    end
+  end
+
+  resources :outfits do
+    resources :feedbacks, only: [:new, :create, :show, :edit, :update]
+  end
+
+  resources :feedbacks, only: [:show, :edit, :update, :destroy]
+
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -13,6 +26,6 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   get "guide", to: "pages#guide"
-  get "validation", to: "pages#validation"
+  get "discovery", to: "pages#discovery"
 
 end

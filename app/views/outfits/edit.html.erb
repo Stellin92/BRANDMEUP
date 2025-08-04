@@ -1,10 +1,14 @@
 <%= simple_form_for(@outfit) do |f| %>
   <%= f.input :title %>
   <%= f.input :description %>
+  <% 4.times do |i| %>
+    <%= f.input :"color_set_#{i}", as: :color, label: "Color ##{i + 1}", input_html: { name: "outfit[color_set][]", value: @outfit.color_set[i] } %>
+  <% end %>
+  <% 4.times do |i| %>
+    <%= f.input :"items_list_#{i}", label: "Item ##{i + 1}", input_html: { name: "outfit[items_list][]", value: @outfit.items_list[i] } %>
+  <% end %>
   <%= f.input :style %>
-  <%= f.input :color_set %>
   <%= f.input :goal %>
   <%= f.input :outfit_image_url %>
-  <%= f.input :items %>
   <%= f.button :submit, "Edit Outfit" %>
 <% end %>

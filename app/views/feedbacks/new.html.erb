@@ -1,0 +1,13 @@
+<h1>Your feedback</h1>
+<p>Your feedback is really important for the monitoring and coming back there without forgetting the past experiences</p>
+<%= simple_form_for([@outfit, @feedback], html: { data: { turbo: false } }) do |f| %>
+  <%= f.input :score,
+              collection: 0..5,
+              required: true,
+              input_html: {autocomplete: "score"} %>
+  <%= f.input :comment,
+              hint: "Scores are good but your words express your mind.",
+              required: true,
+              input_html: {autocomplete: "comment"} %>
+  <%= f.button :submit, "Create Feedback" %>
+<% end %>

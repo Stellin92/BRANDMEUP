@@ -9,16 +9,49 @@
     <h1><%= @outfit.description %></h1>
   </div>
 </div>
-<!-- > Palette color <-->
-<div class="banner" style="background-color: #BC63F8);">
+<!-- > Palette color to set with the array <-->
+<div class="banner" style="background-color: #fbf4f4ff;">
   <div class="container">
-    <h1><%= @outfit.color_set %></h1>
+    <h2>Outfit Color Set</h2>
+    <ul>
+      <% @outfit.color_set.each do |color|%>
+        <li style="background-color:<%= color %>;"></li>
+      <% end %>
+    </ul>
   </div>
 </div>
 <!-- > Item list <-->
+<div class="banner" style="background-color: #fbf4f4ff;">
+  <div class="container">
+    <h2>Outfit Items list</h2>
+    <ul>
+      <% @outfit.items_list.each do |item|%>
+        <li><%= item %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
 <div class="banner" style="background-color: #BC63F8;">
   <div class="container">
     <h1><%= @outfit.user_id %></h1>
   </div>
 </div>
+<% if @outfit.has_feedback? %>
+  <h2>Feedbacks</h2>
+  <% @outfit.feedbacks.each do |feedback| %>
+    <div class="card-product-infos">
+          <h2><%= feedback.user_id %></h2>
+          <p><%= feedback.score %></p>
+          <p><%= feedback.comment %></p>
+        </div>
+  <% end %>
+<% else %>
+  <div class="banner" style="background-color: #71dabeff;">
+    <div class="container">
+      <h1>Rate this outfit</h1>
+      <p>It's important to rate your experience with it. It can help you to choice wisely for other new outfits</p>
+      <%= link_to "Rate the outfit", new_outfit_feedback_path(@outfit), class: "btn btn-flat"%>
+    </div>
+  </div>
+<% end %>
 <%= link_to "Back to profile", user_path(@outfit.user), class: "btn btn-flat" %>

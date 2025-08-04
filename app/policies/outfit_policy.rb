@@ -12,12 +12,12 @@ class OutfitPolicy < ApplicationPolicy
     end
   end
 
-  def permitted_attributes_for_create
-    [:title, :description, :style, :color_set, :goal, :outfit_image_url, :items]
-  end
-
-  def permitted_attributes_for_update
-    [:title, :description, :style, :color_set, :goal, :outfit_image_url]
+  def permitted_attributes
+    if user.admin? || user.owner_of?(post)
+      [:title, :description, :style, :goal, :outfit_image_url, items_list: [], color_set: []]
+    else
+      [:tag_list]
+    end
   end
 
   def show?
@@ -29,14 +29,14 @@ class OutfitPolicy < ApplicationPolicy
   end
 
   def edit?
-    record.user == user
+    user == record.user
   end
 
   def update?
-    record.user == user
+    user == record.user
   end
 
   def destroy?
-    record.user == user
+    user == record.user
   end
 end
