@@ -79,3 +79,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# Gem for create fake users
+
+gem "faker"
