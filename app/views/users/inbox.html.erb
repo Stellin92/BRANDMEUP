@@ -1,0 +1,17 @@
+<div class="container chat">
+  <h1>All your chats</h1>
+
+  <div id="chats" class="chats">
+    <% @chats.each do |chat| %>
+      <%= link_to user_chat_path(current_user, chat) do %>
+        <div id="chat-<%= chat.id %>">
+          <small>
+            <% other_user = chat.user == @user ? chat.partner : chat.user %>
+            <strong><%= other_user.username %></strong>
+          </small>
+          <p><%= chat.messages.last[:content] %></p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -6,7 +6,7 @@
     <%= f.input :"color_set_#{i}", as: :color, label: "Color ##{i + 1}", input_html: { name: "outfit[color_set][]", value: @outfit.color_set[i] } %>
   <% end %>
   <% 4.times do |i| %>
-    <%= f.input :"items_list_#{i}", as: :items_list, label: "Item ##{i + 1}", input_html: { name: "outfit[items_list][]", value: @outfit.items_list[i] } %>
+    <%= f.input :"items_list_#{i}", label: "Item ##{i + 1}", input_html: { name: "outfit[items_list][]", value: @outfit.items_list[i] } %>
   <% end %>
   <%= f.input :style %>
   <%= f.input :goal %>
