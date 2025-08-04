@@ -8,7 +8,7 @@
           <small>
             <strong><%= chat.user.username %></strong>
           </small>
-          <p><%= chat.messages.last %></p>
+          <p><%= chat.messages.last[:content] %></p>
         </div>
       <% end %>
     <% end %>
