@@ -4,7 +4,9 @@ Rails.application.routes.draw do
     member do
       get :inbox
     end
-    resources :chats, only: [:create, :show]
+    resources :chats, only: [:create, :show, :destroy] do
+      resources :messages, only: :create
+    end
   end
 
   resources :outfits do

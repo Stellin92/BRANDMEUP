@@ -1,4 +1,4 @@
-class ChatPolicy < ApplicationPolicy
+class MessagePolicy < ApplicationPolicy
   # NOTE: Up to Pundit v2.3.1, the inheritance was declared as
   # `Scope < Scope` rather than `Scope < ApplicationPolicy::Scope`.
   # In most cases the behavior will be identical, but if updating existing
@@ -12,24 +12,16 @@ class ChatPolicy < ApplicationPolicy
     end
   end
 
-     def permitted_attributes
+  def permitted_attributes
     if user.admin? || user == record.user
-      [:date]
+      [:content]
     else
       [:tag_list]
     end
   end
 
-  def show?
-    user == record.user || user == record.partner
-  end
-
   def create?
     user.present?
-  end
-
-  def destroy?
-    user == record.user || user == record.partner
   end
 
 end

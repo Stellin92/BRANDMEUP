@@ -3,12 +3,14 @@
 
   <div id="chats" class="chats">
     <% @user.chats.each do |chat| %>
-      <div id="chat-<%= chat.id %>">
-        <small>
-          <strong><%= chat.user.nickname %></strong>
-        </small>
-        <p><%= chat.message.last.content %></p>
-      </div>
+      <%= link_to user_chat_path(current_user, chat) do %>
+        <div id="chat-<%= chat.id %>">
+          <small>
+            <strong><%= chat.user.username %></strong>
+          </small>
+          <p><%= chat.messages.last %></p>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

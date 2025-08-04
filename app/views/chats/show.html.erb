@@ -16,4 +16,10 @@
     <p>You haven't started to chat with <%= @chat.partner.username %></p>
   <% end %>
   <p>Form to create</p>
+  <%= form_with model: [current_user, @chat, Message.new], local: true, html: {class: "d-flex"} do |f| %>
+    <% @partner = current_user == @chat.partner ? @chat.user : @chat.partner %>
+    <%= f.text_area :content, placeholder: "Your message", class: "flex-grow-1" %>
+    <%= f.submit "Send", class: "btn btn-primary mb-3" %>
+  <% end %>
+  <%= link_to "Back to your inbox", inbox_user_path(current_user), class: "btn btn-flat"%>
 </div>
