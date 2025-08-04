@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :users, only: [:show, :edit, :update]
+  resources :users, only: [:show, :edit, :update] do
+    member do
+      get :inbox
+    end
+    resources :chats, only: [:create, :show]
+  end
+
   resources :outfits do
     resources :feedbacks, only: [:new, :create, :show, :edit, :update]
   end

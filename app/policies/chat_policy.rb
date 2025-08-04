@@ -1,4 +1,4 @@
-class UserPolicy < ApplicationPolicy
+class ChatPolicy < ApplicationPolicy
   # NOTE: Up to Pundit v2.3.1, the inheritance was declared as
   # `Scope < Scope` rather than `Scope < ApplicationPolicy::Scope`.
   # In most cases the behavior will be identical, but if updating existing
@@ -12,35 +12,24 @@ class UserPolicy < ApplicationPolicy
     end
   end
 
-  def permitted_attributes
-    if user.admin? || user.owner_of?(post)
-      [:bio, :talent, :avatar_url, :username, :photo, :inbox, values: []]
+     def permitted_attributes
+    if user.admin? || user == record.user
+      [:date]
     else
       [:tag_list]
     end
   end
 
-  # def permitted_attributes_for_edit
-  #   [:talent, :bio, :avatar_url, :values]
-  # end
-
-  # def permitted_attributes_for_update
-  #   [:talent, :bio, :avatar_url, :values]
-  # end
-
   def show?
     true
   end
 
-  def edit?
-    user == record
+  def create?
+    true
   end
 
-  def update?
-    user == record
+  def destroy?
+    user == record.user
   end
 
-  def inbox?
-    user == record
-  end
 end

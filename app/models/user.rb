@@ -6,6 +6,10 @@ class User < ApplicationRecord
 
   has_many :outfits, dependent: :destroy
   has_many :feedbacks, dependent: :destroy
+  has_many :messages, dependent: :destroy
+  has_many :chats
+  has_many :partnered_chats, class_name: 'Conversation', foreign_key: :partner_id
+
   has_one_attached :photo
   # has_outfits? method
   # This method checks if the user has at least one outfit and return a boolean

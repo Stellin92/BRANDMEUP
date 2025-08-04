@@ -1,0 +1,14 @@
+<div class="container chat">
+  <h1>All your chats</h1>
+
+  <div id="chats" class="chats">
+    <% @user.chats.each do |chat| %>
+      <div id="chat-<%= chat.id %>">
+        <small>
+          <strong><%= chat.user.nickname %></strong>
+        </small>
+        <p><%= chat.message.last.content %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
