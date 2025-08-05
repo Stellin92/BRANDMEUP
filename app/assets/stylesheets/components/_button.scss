@@ -1,13 +1,18 @@
 .btn.btn-flat {
   color: white;
   padding: 8px 24px;
-  border: 2px solid #562f70;
+  border: 2px solid $charcoal;
   border-radius: 4px;
-  background: #BC63F8;
+  background: #8572FF;
   // transition: background 0.3s ease;
 }
 
 .btn.btn-flat:hover {
-  background: #612a85;
+  background: #7BAEDC;
   color: white;
+}
+
+.btn-second {
+  background: $celeste;
+  color: $charcoal;
 }

@@ -1,3 +1,10 @@
+@media(min-width: 576px) {
+  li.nav-item.active {
+    display: flex;
+    align-items: center;
+  }
+}
+
 .navbar-lewagon {
   justify-content: space-between;
   background: white;
@@ -9,4 +16,15 @@
 
 .navbar-lewagon .navbar-brand img {
   width: 100px;
+}
+
+.nav-link {
+  color: $charcoal;
+}
+
+.nav-link:hover{
+  background-color: $lavender;
+  color: $charcoal;
+  font-weight: bold;
+  border-radius: 4px;
 }
