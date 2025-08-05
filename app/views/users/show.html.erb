@@ -44,11 +44,22 @@
     </div>
   <% end %>
 <% else %>
-  <div class="banner" style="background-color: #ef49d6ff;">
-    <div class="container">
-      <h2>No outfit yet ?</h2>
-      <p>Your profile feels naked without an outfit to wear. Let's change that now!</p>
-      <%= link_to "Outfits Creator", "/outfits/new", class: "btn btn-flat"%>
+  <% if current_user == @user %>
+    <div class="banner" style="background-color: #ef49d6ff;">
+      <div class="container">
+        <h2>No outfit yet ?</h2>
+        <p>Your profile feels naked without an outfit to wear. Let's change that now!</p>
+        <%= link_to "Outfits Creator", "/outfits/new", class: "btn btn-flat"%>
+      </div>
     </div>
-  </div>
+  <% else %>
+    <div class="banner" style="background-color: #ef49d6ff;">
+      <div class="container">
+        <h2>No outfit from <%= @user.username%> yet</h2>
+        <p><%= @user.username%> has not created his first outfit. You could send a message and propose your help.</p>
+        <%= form_with url: user_chats_path(current_user), method: :post, local: true do %>
+          <%= hidden_field_tag :partner_id, @user.id %>
+        <%= submit_tag "Send a message", class: "btn btn-flat" %>
+      </div>
+    </div>
 <% end %>
