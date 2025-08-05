@@ -59,7 +59,8 @@
         <p><%= @user.username%> has not created his first outfit. You could send a message and propose your help.</p>
         <%= form_with url: user_chats_path(current_user), method: :post, local: true do %>
           <%= hidden_field_tag :partner_id, @user.id %>
-        <%= submit_tag "Send a message", class: "btn btn-flat" %>
+          <%= submit_tag "Send a message", class: "btn btn-flat" %>
+        <% end %>
       </div>
     </div>
   <% end %> <!-- > Funny though <-->
