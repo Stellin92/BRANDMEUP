@@ -1,29 +1,31 @@
-<% if @user.photo.key %>
-  <%= cl_image_tag @user.photo.key, height: 300, width: 400, crop: :fill %>
-<% else %>
-  <%= cl_image_tag("blank-profile-picture-973460_1280_q70y1j", height: 300, width: 400, crop: :fill)%>
-<% end %>
-<div class="banner" style="background-color: #BC63F8;">
+<div class="d-flex justify-content-center">
+  <% if @user.photo.key %>
+    <%= cl_image_tag @user.photo.key, height: 300, width: 300, crop: :fill, class: "rounded-circle" %>
+  <% else %>
+    <%= cl_image_tag("blank-profile-picture-973460_1280_q70y1j", height: 300, width: 300, crop: :fill, class: "rounded-circle")%>
+  <% end %>
+</div>
+<div class="d-flex justify-content-center">
+  <% if current_user == @user %>
+  <% else %>
+    <%= form_with url: user_chats_path(current_user), method: :post, local: true do %>
+      <%= hidden_field_tag :partner_id, @user.id %>
+      <%= submit_tag "Connect", class: "btn btn-flat" %>
+    <% end %>
+  <% end %>
+</div>
+<div class="banner" style="background-color: #c8c3fe;">
   <div class="container">
     <h1><%= @user.username %>'s profile</h1>
     <p><%= @user.bio%></p>
     <div class="ul">
-      <div class="li">Talent: <%= @user.talent %></div>
-      <div class="li">Values:
-        <ul>
+      <div class="li"><strong>Talent</strong> <%= @user.talent %></div>
+      <div class="li"><strong>Values</strong>
           <% @user.values.each do |value|%>
-          <li><%= value %></li>
+          <span><%= value %></span>
           <% end %>
-        </ul>
       </div>
     </div>
-    <% if current_user == @user %>
-    <% else %>
-      <%= form_with url: user_chats_path(current_user), method: :post, local: true do %>
-        <%= hidden_field_tag :partner_id, @user.id %>
-        <%= submit_tag "Send a message", class: "btn btn-flat" %>
-      <% end %>
-    <% end %>
   </div>
 </div>
 
@@ -45,7 +47,7 @@
   <% end %>
 <% else %>
   <% if current_user == @user %>
-    <div class="banner" style="background-color: #ef49d6ff;">
+    <div class="banner" style="background-color: #c8c3fe;">
       <div class="container">
         <h2>No outfit yet ?</h2>
         <p>Your profile feels naked without an outfit to wear. Let's change that now!</p>
@@ -53,7 +55,7 @@
       </div>
     </div>
   <% else %>
-    <div class="banner" style="background-color: #ef49d6ff;">
+    <div class="banner" style="background-color: #c8c3fe;">
       <div class="container">
         <h2>No outfit from <%= @user.username%> yet</h2>
         <p><%= @user.username%> has not created his first outfit. You could send a message and propose your help.</p>

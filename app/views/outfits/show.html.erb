@@ -13,7 +13,7 @@
 <div class="banner" style="background-color: #fbf4f4ff;">
   <div class="container">
     <h2>Outfit Color Set</h2>
-    <ul>
+    <ul class="stylish-list">
       <% @outfit.color_set.each do |color|%>
         <li style="background-color:<%= color %>;"></li>
       <% end %>
@@ -24,7 +24,7 @@
 <div class="banner" style="background-color: #fbf4f4ff;">
   <div class="container">
     <h2>Outfit Items list</h2>
-    <ul>
+    <ul class="stylish-list">
       <% @outfit.items_list.each do |item|%>
         <li><%= item %></li>
       <% end %>
