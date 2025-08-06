@@ -4,18 +4,21 @@
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et voluptatem totam eaque? Soluta, blanditiis ipsam rem magni et recusandae quidem perferendis. Optio sed repudiandae cum rerum alias nobis cupiditate. Ipsum?</p>
   </div>
 </div>
-<div class="users-display">
+<div class="row">
   <% User.all.each do |user| %>
-    <div class="card-product">
+    <div class="outfit-card col-12 col-sm-6 col-md-4">
       <%= link_to user_path(user) do %>
-        <% if user.photo.key %>
-          <%= cl_image_tag user.photo.key, height: 75, width: 100, crop: :fill %>
-        <% else %>
-          <%= cl_image_tag("blank-profile-picture-973460_1280_q70y1j", height: 75, width: 100, crop: :fill)%>
-        <% end %>
-        <div class="card-product-infos">
-          <h2><%= user.username %></h2>
-          <p><%= user.bio %></p>
+        <div class="card-inner">
+          <% if user.photo.key %>
+            <%= cl_image_tag user.photo.key, class: "outfit-image" %>
+          <% else %>
+            <%= cl_image_tag("blank-profile-picture-973460_1280_q70y1j", class: "outfit-image")%>
+          <% end %>
+          <h3 class="outfit-title"><%= user.username %></h3>
+          <div class="card-actions">
+            <h2><%= user.username %></h2>
+            <p><%= user.bio %></p>
+          </div>
         </div>
       <% end %>
     </div>
