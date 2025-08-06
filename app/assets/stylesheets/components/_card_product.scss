@@ -1,36 +1,76 @@
-.card-product {
-  // overflow: hidden;
-  height: 120px;
-  background: $broken-white;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  border-radius: 24px;
-  margin: 12px auto;
-  // display: flex;
-  // align-items: center;
-}
-
-.card-product img {
-  height: 80%;
-  width: 120px;
-  object-fit: cover;
-}
-
-.card-product h2 {
-  font-size: 16px;
-  font-weight: bold;
-  margin: 0;
-}
-
-.card-product p {
-  font-size: 12px;
-  line-height: 1.4;
-  opacity: .7;
-  margin-bottom: 0;
-  margin-top: 8px;
-}
-
-.card-product .card-product-infos {
+.outfit-card {
+  padding: 1rem;
   display: flex;
-  flex-direction: row;
-  padding: 4px;
+  justify-content: center;
+}
+
+.card-inner {
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.outfit-image {
+  width: 100%;
+  height: 250px;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.outfit-title {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #333;
+  flex-grow: 1;
+}
+
+.card-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-edit {
+  background-color: #c8c3fe;
+  color: #333;
+}
+
+.btn-delete {
+  background-color: #f2f2f2;
+  color: #b30000;
+}
+
+.btn-new-outfit {
+  background-color: #c8c3fe;
+  color: #333;
+  font-weight: 600;
+  padding: 12px 32px;
+  border-radius: 30px;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 1rem;
+}
+
+.btn-new-outfit:hover {
+  background-color: #a7a0fc;
+  transform: translateY(-2px);
 }

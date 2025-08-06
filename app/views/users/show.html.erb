@@ -30,23 +30,30 @@
 </div>
 
 <% if @user.has_outfit? %>
-  <h2>The outfits</h2>
+  <h2 class="d-flex justify-content-center">The outfits</h2>
   <div class="row">
-    <% @user.outfits.each do |outfit| %>
-     <% background_image_url = outfit.photo.key ? cl_image_path(outfit.photo.key) : cl_image_path("blank-profile-picture-973460_1280_q70y1j") %>
-
-      <div class="card-product col-sm-6 col-md-4" style="background-image: url('<%= background_image_url%>')">
-        <%= link_to outfit_path(outfit) do %>
-          <div class="card-product-infos">
-            <h2><%= outfit.title %></h2>
-            <% if current_user == @user %>
-              <%= link_to "Edit", edit_outfit_path(outfit), class: "btn btn-flat"%>
-            <% end %>
-          </div>
+  <% @user.outfits.each do |outfit| %>
+    <div class="outfit-card col-12 col-sm-6 col-md-4">
+      <div class="card-inner">
+        <% if outfit.photo.attached? %>
+          <%= cl_image_tag outfit.photo.key, class: "outfit-image" %>
+        <% else %>
+          <%= cl_image_tag "blank-profile-picture-973460_1280_q70y1j", class: "outfit-image" %>
         <% end %>
+
+        <h3 class="outfit-title"><%= outfit.title %></h3>
+
+        <div class="card-actions">
+          <%= link_to "Edit", edit_outfit_path(outfit), class: "btn btn-flat" %>
+          <%= link_to "Delete", outfit_path(outfit), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-flat"%>
+        </div>
       </div>
-    <% end %>
+    </div>
+  <% end %>
+  <div class="d-flex justify-content-center mt-4">
+    <%= link_to "New Outfit", new_outfit_path, class: "btn-new-outfit" %>
   </div>
+</div>
 <% else %>
   <% if current_user == @user %>
     <div class="banner" style="background-color: #c8c3fe;">

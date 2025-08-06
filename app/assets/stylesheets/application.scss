@@ -16,4 +16,14 @@
 @import "components/footer";
 @import "components/banner";
 @import "components/card_product";
-@import "components/lists"
+@import "components/lists";
+
+// Body background
+
+.with-background {
+  background-image: url('https://res.cloudinary.com/dp4wqu1hq/image/upload/v1754467193/colorful_background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh; /* s'assure que ça couvre toute la hauteur */
+}
