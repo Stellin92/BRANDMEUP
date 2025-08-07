@@ -1,0 +1,135 @@
+.fancy-form {
+  background-color: #FDFBF8;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  max-width: 700px;
+  margin: 0 auto;
+
+  h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #593a8a;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+
+    label {
+      font-weight: 500;
+      color: #593a8a;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 2px solid #BCA7E8;
+      border-radius: 1rem;
+      background-color: #fff;
+      font-size: 1rem;
+      transition: border 0.2s ease;
+
+      &:focus {
+        border-color: #8572FF;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(133, 114, 255, 0.2);
+      }
+    }
+
+    input[type="color"] {
+      height: 3rem;
+      padding: 0.3rem;
+      border-radius: 50%;
+      width: 3rem;
+      border: none;
+      cursor: pointer;
+    }
+  }
+
+  .form-actions {
+    text-align: center;
+
+    .button {
+      background-color: #8572FF;
+      color: white;
+      padding: 0.8rem 2rem;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 2rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background-color: #9e99fe;
+      }
+    }
+  }
+}
+.photo-upload {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .preview-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 1.5rem;
+    object-fit: cover;
+    border: 3px dashed #BCA7E8;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: #8572FF;
+      box-shadow: 0 0 10px rgba(133, 114, 255, 0.3);
+    }
+  }
+}
+
+.color-picker-wrapper {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.color-bubble {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #BCA7E8;
+  transition: border 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+
+  &:hover {
+    border-color: #8572FF;
+  }
+
+  .color-input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: none;
+    padding: 0;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .color-input::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  .color-input::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+  }
+}
