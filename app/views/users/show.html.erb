@@ -36,23 +36,28 @@
     <div class="outfit-card col-12 col-sm-6 col-md-4">
       <div class="card-inner">
         <% if outfit.photo.attached? %>
-          <%= cl_image_tag outfit.photo.key, class: "outfit-image" %>
+          <%= link_to outfit_path(outfit) do%>
+            <%= cl_image_tag outfit.photo.key, class: "outfit-image" %>
+          <% end %>
         <% else %>
           <%= cl_image_tag "blank-profile-picture-973460_1280_q70y1j", class: "outfit-image" %>
         <% end %>
 
         <h3 class="outfit-title"><%= outfit.title %></h3>
-
-        <div class="card-actions">
-          <%= link_to "Edit", edit_outfit_path(outfit), class: "btn btn-flat" %>
-          <%= link_to "Delete", outfit_path(outfit), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-flat"%>
-        </div>
+        <% if current_user == @user %>
+          <div class="card-actions">
+            <%= link_to "Edit", edit_outfit_path(outfit), class: "btn btn-flat" %>
+            <%= link_to "Delete", outfit_path(outfit), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-flat"%>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>
-  <div class="d-flex justify-content-center mt-4">
-    <%= link_to "New Outfit", new_outfit_path, class: "btn-new-outfit" %>
-  </div>
+  <% if current_user == @user %>
+    <div class="d-flex justify-content-center mt-4">
+      <%= link_to "New Outfit", new_outfit_path, class: "btn-new-outfit" %>
+    </div>
+  <% end %>
 </div>
 <% else %>
   <% if current_user == @user %>
@@ -74,5 +79,5 @@
         <% end %>
       </div>
     </div>
-  <% end %> <!-- > Funny though <-->
+  <% end %>
 <% end %>
