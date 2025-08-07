@@ -1,14 +1,38 @@
-<%= simple_form_for(@outfit) do |f| %>
-  <%= f.input :title %>
-  <%= f.input :description %>
-  <% 4.times do |i| %>
-    <%= f.input :"color_set_#{i}", as: :color, label: "Color ##{i + 1}", input_html: { name: "outfit[color_set][]", value: @outfit.color_set[i] } %>
+<div class="fancy-form">
+  <%= simple_form_for(@outfit) do |f| %>
+    <div class="photo-upload" data-controller="preview">
+      <label for="outfit_photo_input">
+        <img id="photo-preview" src="<%= @outfit.photo.attached? ? url_for(@outfit.photo) : cl_image_path('blank-profile-picture-973460_1280_q70y1j') %>" alt="Outfit preview" class="preview-image" />
+      </label>
+
+      <%= f.input :photo,
+            as: :file,
+            input_html: {
+              accept: 'image/*',
+              id: 'outfit_photo_input',
+              data: { action: 'change->preview#update' }
+            },
+            label: false %>
+    </div>
+    <%= f.input :title %>
+    <%= f.input :description %>
+    <div class="color-picker-wrapper" data-controller="color">
+      <% 4.times do |i| %>
+        <div class="color-bubble">
+          <input
+            type="color"
+            name="outfit[color_set][]"
+            id="color_set_<%= i %>"
+            value="<%= @outfit.color_set[i] || '#BCA7E8' %>"
+            data-action="input->color#update"
+            class="color-input"
+          >
+        </div>
+      <% end %>
+    </div>
+    <%= f.input :style %>
+    <%= f.input :goal %>
+    <%= f.input :photo, as: :file %>
+    <%= f.button :submit, "Edit Outfit", class: "btn btn-flat" %>
   <% end %>
-  <% 4.times do |i| %>
-    <%= f.input :"items_list_#{i}", label: "Item ##{i + 1}", input_html: { name: "outfit[items_list][]", value: @outfit.items_list[i] } %>
-  <% end %>
-  <%= f.input :style %>
-  <%= f.input :goal %>
-  <%= f.input :photo, as: :file %>
-  <%= f.button :submit, "Edit Outfit" %>
-<% end %>
+</div>

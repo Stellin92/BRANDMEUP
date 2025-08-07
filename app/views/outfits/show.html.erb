@@ -1,40 +1,29 @@
-<div class="banner" style="background-image: url(<%= @outfit.outfit_image_url %>);">
-  <div class="container">
-    <h1><%= @outfit.title %></h1>
-  </div>
+<div class="main-image d-flex justify-content-center">
+  <%= cl_image_tag @outfit.photo.key, height: 300, class: "rounded", crop: :fill %>
 </div>
-<!-- > Bio <-->
-<div class="banner" style="background-color: #BC63F8;">
-  <div class="container">
-    <h1><%= @outfit.description %></h1>
-  </div>
+<div class="row">
+  <div class="d-flex flex-row justify-content-center"><h1><%= @outfit.title %></h1></div>
+  <div class="d-flex flex-row justify-content-center"><p><%= @outfit.description %></p></div>
 </div>
 <!-- > Palette color to set with the array <-->
-<div class="banner" style="background-color: #fbf4f4ff;">
-  <div class="container">
-    <h2>Outfit Color Set</h2>
-    <ul class="stylish-list">
-      <% @outfit.color_set.each do |color|%>
-        <li style="background-color:<%= color %>;"></li>
-      <% end %>
-    </ul>
+<div class="row">
+  <div class="d-flex justify-content-center">
+    <h2>The Color Set</h2>
+  </div>
+  <div class="d-flex justify-content-center">
+    <% @outfit.color_set.each do |color|%>
+      <div class="dot" style="background-color: <%= color %>;"></div>
+    <% end %>
   </div>
 </div>
-<!-- > Item list <-->
-<div class="banner" style="background-color: #fbf4f4ff;">
-  <div class="container">
-    <h2>Outfit Items list</h2>
-    <ul class="stylish-list">
-      <% @outfit.items_list.each do |item|%>
-        <li><%= item %></li>
-      <% end %>
-    </ul>
-  </div>
-</div>
-<div class="banner" style="background-color: #BC63F8;">
-  <div class="container">
-    <h1><%= @outfit.user_id %></h1>
-  </div>
+<div class="row justify-content-center text-center">
+  <div class="col-12"><h2>Pieces</h2></div>
+
+  <% @outfit.items_list.each do |item| %>
+    <div class="col-6 col-md-4 d-flex justify-content-center">
+      <div><%= item %></div>
+    </div>
+  <% end %>
 </div>
 <% if @outfit.has_feedback? %>
   <h2>Feedbacks</h2>
@@ -46,12 +35,15 @@
         </div>
   <% end %>
 <% else %>
-  <div class="banner" style="background-color: #71dabeff;">
+  <div class="banner">
     <div class="container">
       <h1>Rate this outfit</h1>
-      <p>It's important to rate your experience with it. It can help you to choice wisely for other new outfits</p>
+      <p>Be the first to rate this outfit and help <%= @outfit.user.username %> to shine brighter!</p>
       <%= link_to "Rate the outfit", new_outfit_feedback_path(@outfit), class: "btn btn-flat"%>
     </div>
   </div>
 <% end %>
-<%= link_to "Back to profile", user_path(@outfit.user), class: "btn btn-flat" %>
+<div class="d-flex justify-content-center">
+  <%= link_to "Edit", edit_outfit_path(@outfit), class: "btn btn-flat" %>
+  <%= link_to "Back to profile", user_path(@outfit.user), class: "btn btn-flat" %>
+</div>
