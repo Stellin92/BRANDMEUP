@@ -8,3 +8,6 @@ import { application } from "./application"
 import PreviewController from "./preview_controller"
 
 application.register("preview", PreviewController)
+
+import MenuController from "./menu_controller"
+application.register("menu", MenuController)
