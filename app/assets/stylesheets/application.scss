@@ -30,3 +30,15 @@
   background-repeat: no-repeat;
   min-height: 100vh; /* s'assure que ça couvre toute la hauteur */
 }
+
+body {
+  font-family: $body-font;
+  font-weight: 400;
+  color: #222;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $headers-font;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}

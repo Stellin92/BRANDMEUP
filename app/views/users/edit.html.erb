@@ -8,16 +8,35 @@
   3. Link for the next user story
 
 <-->
+<div class="d-flex justify-content-center">
+  <h1>Brand your Identity Up</h1>
+</div>
+<div class="d-flex justify-content-center">
+  <p>Your profile is not complete. Please fill in this to make it shine like it deserves!</p>
+</div>
 
-<h1>Brand your Identity Up</h1>
-<p>Your profile is not complete. Please fill in this to make it shine like it deserves!</p>
-<%= simple_form_for(current_user) do |f| %>
-  <%= f.input :username %>
-  <%= f.input :bio %>
-  <%= f.input :talent %>
-  <% 3.times do |i| %>
-    <%= f.input :"values_#{i}", label: "Value ##{i + 1}", input_html: { name:"user[values][]", value: @user.values[i] } %>
+<div class="fancy-form">
+  <%= simple_form_for(current_user) do |f| %>
+    <div class="photo-upload" data-controller="preview">
+        <label for="user_photo_input">
+          <img id="photo-preview" src="<%= @user.photo.attached? ? url_for(@user.photo) : cl_image_path('blank-profile-picture-973460_1280_q70y1j') %>" alt="User preview" class="preview-image" />
+        </label>
+
+        <%= f.input :photo,
+              as: :file,
+              input_html: {
+                accept: 'image/*',
+                id: 'user_photo_input',
+                data: { action: 'change->preview#update' }
+              },
+              label: false %>
+      </div>
+    <%= f.input :username %>
+    <%= f.input :bio %>
+    <%= f.input :talent %>
+    <% 3.times do |i| %>
+      <%= f.input :"values_#{i}", label: "Value ##{i + 1}", input_html: { name:"user[values][]", value: @user.values[i] } %>
+    <% end %>
+    <%= f.button :submit, "Edit User", class: "btn-new-outfit" %>
   <% end %>
-  <%= f.input :photo, as: :file %>
-  <%= f.button :submit, "Edit User" %>
-<% end %>
+</div>
