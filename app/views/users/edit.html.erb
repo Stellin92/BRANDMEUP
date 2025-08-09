@@ -37,6 +37,6 @@
     <% 3.times do |i| %>
       <%= f.input :"values_#{i}", label: "Value ##{i + 1}", input_html: { name:"user[values][]", value: @user.values[i] } %>
     <% end %>
-    <%= f.button :submit, "Edit User", class: "btn-new-outfit" %>
+    <%= f.button :submit, "Validate", class: "btn btn-flat" %>
   <% end %>
 </div>
