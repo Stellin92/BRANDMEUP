@@ -5,21 +5,37 @@
   }
 }
 
+.nav-item {
+  margin: auto 16px;
+}
+
 .navbar-lewagon {
   justify-content: space-between;
   background: transparent;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
 }
 
 .navbar-lewagon .navbar-collapse {
   flex-grow: 0;
 }
 
+.navbar-lewagon .navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
 .navbar-lewagon .navbar-brand img {
   width: 100px;
+  height: 75px;
+  width: auto;
 }
 
 .nav-link {
   color: $charcoal;
+  margin: 5px 10px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
 .nav-link:hover{

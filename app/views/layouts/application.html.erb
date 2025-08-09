@@ -14,10 +14,13 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="with-background"><%= render "shared/navbar" %>
-    <%= render "shared/flashes" %>
+  <body class="with-background">
+    <div class="max-w-6xl mx-auto px-4">
+      <%= render "shared/navbar" %>
+      <%= render "shared/flashes" %>
 
-    <%= yield %>
-    <%= render "shared/footer" %>
+      <%= yield %>
+      <%= render "shared/footer" %>
+    </div>
   </body>
 </html>
