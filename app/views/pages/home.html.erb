@@ -1,27 +1,59 @@
 <% if user_signed_in? %>
-  <div class="banner banner-hero">
-    <div class="container">
-      <h1>Let your creativity shine with Discovery</h1>
-      <p>Look over here what the other members have already achieved.</p>
-      <%= link_to "Brand. Me. UP!", "/discovery", class: "btn btn-flat" %>
+  <div class="banner col-12"
+     style="border-radius: 0; height: 700px;
+            background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),
+                              url('https://res.cloudinary.com/dp4wqu1hq/image/upload/v1754722558/pexels-wesleydavi-3622614-scaled_vqifat.jpg');">
+
+    <div class="container" style="
+                display: flex;
+                align-items: center;">
+      <div class="Real">
+        <h1 style="margin: 0;
+                    color: white;
+                    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+                    font-size: 32px;
+                    font-weight: bold;">Let your creativity shine with Discovery</h1>
+        <p style="font-size: 20px;
+              color: white;
+              opacity: .7;
+              text-shadow: 1px 1px 3px rgba(0,0,0,0.2);">
+              Look over here what the other members have already achieved.</p>
+        <%= link_to "Brand. Me. UP!", "/discovery", class: "btn btn-flat" %>
+      </div>
     </div>
   </div>
 
-  <div class="banner banner-second">
-    <div class="container">
-      <h2>Craft your outfit kit here</h2>
-      <p>Create your specific outfit and save it for your next events!</p>
-      <%= link_to "Outfit Creator", "/outfits/new", class: "btn btn-flat" %>
+  <div class="banner"
+      style="background-color: transparent;
+              border-radius: 0;
+              box-shadow: 0;">
+    <div class="container"
+          style="
+                display: flex;
+                align-items: center;
+                max-height: 500px">
+      <img style="max-height: 500px" src="https://res.cloudinary.com/dp4wqu1hq/image/upload/v1754722560/se7en92_a_personal_stylist_designing_a_fashion_outfit_on_a_god_3e04ac29-59d7-423b-927e-20a561459eff_apevus.png" alt="Personal Stylist">
+      <div class="hero-info" >
+        <h2>Craft your outfit kit here</h2> <!-- > Value proposition <-->
+        <p>Create your specific outfit and save it for your next events!</p>
+        <%= link_to "Outfit Creator", "/outfits/new", class: "btn btn-flat" %>
+      </div>
     </div>
   </div>
 
-  <div class="banner banner-later">
+  <div class="banner"> <!-- > User target <-->
     <div class="container">
       <h2>A guide for your first outfit kit</h2>
       <p>You will learn how to create and save your first outfit kit with our guide.</p>
       <%= link_to "Coming soon", "/", class: "btn btn-flat" %>
     </div>
   </div>
+
+<!-- > Why ? <-->
+
+
+<!-- > Final CTA Same as first CTA <-->
+
 
 <% else %>
   <div class="banner banner-hero">
