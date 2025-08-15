@@ -7,12 +7,5 @@ eagerLoadControllersFrom("controllers", application)
 // import { application } from "./application"
 // import PreviewController from "./preview_controller"
 
-<<<<<<< HEAD
 // application.register("preview", PreviewController)
 // // Test
-=======
-application.register("preview", PreviewController)
-
-import MenuController from "./menu_controller"
-application.register("menu", MenuController)
->>>>>>> saveo

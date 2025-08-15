@@ -1,17 +1,15 @@
 .banner {
+  backdrop-filter: contrast(80%);
   background-size: cover;
   background-position: center;
-  margin: 16px auto;
-  padding: 16px 16px;
-  width: 75%;
-  border-radius: 24px;
-  box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.3);
-  background-color: $lavender
+  padding: 150px 0;
+  width: 100%;
+  height: 600px;
 }
 
 .banner h1 {
-  margin: 0;
-  color: $charcoal;
+  margin: 20px 0;
+  color: white;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
   font-size: 32px;
   font-weight: bold;
@@ -19,23 +17,18 @@
 
 .banner p {
   font-size: 20px;
-  color: $broken-white;
-  opacity: .7;
+  margin: 20px 0 30px 0;
+  color: white;
+  // opacity: .7;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
-// .banner-hero {
-//   background-color: $lavender;
-// }
+// Section styling for space
 
-// .banner-second {
-//   background-color: $broken-white;
-// }
+// I separate the section class from the banner
 
-// .banner-second p {
-//   color: $charcoal;
-// }
-
-// .banner-later {
-//   background-color: $celeste;
-// }
+.section {
+  width: 100%;
+  min-height: 500px;
+  padding: 50px;
+}

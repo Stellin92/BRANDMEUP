@@ -8,18 +8,28 @@
 @import "font-awesome";
 
 // Your CSS partials
-@import "components/index";
-@import "pages/index";
+
+@import "components/banner";
+@import "components/footer";
 @import "components/navbar";
 @import "components/button";
-@import "components/avatar";
-@import "components/footer";
-@import "components/banner";
-@import "components/card_product";
-@import "components/lists";
-@import "components/main_image";
-@import "components/dot";
+@import "components/value_proposition_cards";
+@import "components/user_category_card";
 @import "components/form_legend_clear";
+
+// Former CSS partials
+
+// @import "components/index";
+// @import "pages/index";
+//
+//
+// @import "components/avatar";
+// @import "components/banner";
+// @import "components/card_product";
+// @import "components/lists";
+// @import "components/main_image";
+// @import "components/dot";
+//
 
 // Body background
 
@@ -28,7 +38,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh; /* s'assure que ça couvre toute la hauteur */
+  // min-height: 100vh; /* s'assure que ça couvre toute la hauteur */
 }
 
 body {

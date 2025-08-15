@@ -1,0 +1,26 @@
+.value-proposition-card {
+  height: 500px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.value-proposition-card img {
+  height: 100%;
+  width: 50%;
+  object-fit: cover;
+}
+
+.value-proposition-card h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.value-proposition-card p {
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.value-proposition-card .value-proposition-info {
+  padding: 16px;
+}

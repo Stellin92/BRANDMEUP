@@ -34,6 +34,9 @@ class UsersController < ApplicationController
   private
 
   def set_user
+      if params[:id].to_s !~ /\A\d+\z/
+        redirect_to root_path, alert: "Invalid user" and return
+      end
       @user = User.find(params[:id])
   end
 

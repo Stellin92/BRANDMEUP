@@ -3,6 +3,11 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "@popperjs/core"
 import "bootstrap"
+
+import { Application } from "@hotwired/stimulus"
+
+const application = Application.start()
+
 import PreviewController from "./controllers/preview_controller"
 application.register("preview", PreviewController)
 // import "./controllers"

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { registrations: "users/registrations"}
   resources :users, only: [:show, :edit, :update] do
     member do
       get :inbox
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  get "guide", to: "pages#guide"
+  get "guide", to: "pages#guide", as: :guide
   get "discovery", to: "pages#discovery"
 
 end
