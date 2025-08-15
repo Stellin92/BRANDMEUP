@@ -1,11 +1,4 @@
 <% if user_signed_in? %>
-  <div class="banner">
-    <div class="container">
-      <h1></h1>
-      <p></p>
-
-    </div>
-  </div>
   <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dp4wqu1hq/image/upload/v1754722558/pexels-wesleydavi-3622614-scaled_vqifat.jpg);">
     <div class="container">
       <h1>Make a quick tour to our guide</h1>
@@ -13,13 +6,13 @@
       <%= link_to "Guide. Me. UP!", "/guide", class: "btn btn-flat" %>
     </div>
   </div>
-
   <div class="container">
 
     <h2>Let your creativity shine with Discovery</h2>
     <p>Look closely at what the other members have already created and inspire your own</p>
     <%= link_to "I discover", "/outfits/new", class: "btn btn-flat" %>
   </div>
+
 
   <div class="banner-later" style="width: 100%;">
     <div class="container">

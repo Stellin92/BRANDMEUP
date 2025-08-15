@@ -1,0 +1,96 @@
+.guide-page {
+  font-family: var(--font-body, "Poppins", sans-serif);
+  scroll-behavior: smooth;
+}
+
+.guide-block {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-out;
+}
+
+.guide-block.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.center {
+  max-width: 800px;
+  text-align: center;
+}
+
+.guide-split {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  max-width: 1100px;
+}
+.guide-split.reverse { flex-direction: row-reverse; }
+.guide-split .guide-image img { max-width: 100%; border-radius: 1rem; }
+.guide-split .guide-text { flex: 1; }
+
+.scroll-indicator {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* Block-specific colors (tu peux adapter aux tokens) */
+// .block-1 { background: linear-gradient(135deg, #1e1b4b, #312e81); color: white; }
+// .block-2 { background: #0e0e10; color: white; }
+// .block-3 { background: #17171b; color: white; }
+// .block-4 { background: #0e0e10; color: white; }
+
+.block-2 { background: transparent; color: black; }
+.block-3 { background: transparent; color: black; }
+
+.btn-big {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 0.8rem;
+  background: var(--primary-600, #7C3AED);
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 2rem;
+  transition: background 0.3s ease;
+}
+.btn-big:hover {
+  background: var(--primary-700, #6D28D9);
+}
+
+.guide-image {
+  max-width: 50%;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.guide-image img {
+  border-radius: 1rem;
+  transition: transform 0.2s ease-out;
+}
+
+.block-1 {
+  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("https://res.cloudinary.com/dp4wqu1hq/image/upload/v1755300904/se7en92_A_dramatic_abstract_scene_with_a_silhouette_walking_t_cd818bbd-ca8d-4a56-ae48-4ccbf54ed767_0_idjucu.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
+
+.block-4 {
+  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("https://res.cloudinary.com/dp4wqu1hq/image/upload/v1755301110/se7en92_A_vibrant_collage_of_diverse_fashion_silhouettes_and__c1c3d572-02d1-4dd8-ae6d-8a0112067608_0_lgvn2b.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
