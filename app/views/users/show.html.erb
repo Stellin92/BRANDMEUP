@@ -1,47 +1,49 @@
-<div class="user-page container">
+<div class="user-page">
 
   <!-- Header profile -->
-  <div class="user-header">
-    <div class="user-avatar">
-      <% if @user.photo.attached? %>
-        <%= cl_image_tag @user.photo.key, alt: @user.username, class: "avatar-img" %>
-      <% else %>
-        <%= cl_image_tag "blank-profile-picture-973460_1280_q70y1j.png", alt: @user.username, class: "avatar-img" %>
-      <% end %>
-    </div>
+  <div class="container">
+    <div class="user-header">
+      <div class="user-avatar">
+        <% if @user.photo.attached? %>
+          <%= cl_image_tag @user.photo.key, alt: @user.username, class: "avatar-img" %>
+        <% else %>
+          <%= cl_image_tag "blank-profile-picture-973460_1280_q70y1j.png", alt: @user.username, class: "avatar-img" %>
+        <% end %>
+      </div>
 
-    <div class="user-info">
-      <h1 class="username"><%= @user.username %></h1>
-      <p class="bio"><%= @user.bio %></p>
-      <% if @user.talent.present? %>
-        <p class="talent"><strong>Talent:</strong> <%= @user.talent %></p>
-      <% end %>
-      <% if @user.values.present? %>
-        <div class="values">
-          <% Array(@user.values).first(3).each do |val| %>
-            <span class="tag"><%= val %></span>
+      <div class="user-info">
+        <h1 class="username"><%= @user.username %></h1>
+        <p class="bio"><%= @user.bio %></p>
+        <% if @user.talent.present? %>
+          <p class="talent"><strong>Talent:</strong> <%= @user.talent %></p>
+        <% end %>
+        <% if @user.values.present? %>
+          <div class="values">
+            <% Array(@user.values).first(3).each do |val| %>
+              <span class="tag"><%= val %></span>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="user-actions">
+          <% if current_user == @user %>
+            <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-flat" %>
+          <% else %>
+            <%= link_to "Message", inbox_user_path(@user), class: "btn btn-flat" %>
           <% end %>
         </div>
-      <% end %>
-
-      <div class="user-actions">
-        <% if current_user == @user %>
-          <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-secondary" %>
-        <% else %>
-          <%= link_to "Message", inbox_user_path(@user), class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+  <!-- Outfits -->
+  <div class="container">
+    <div class="user-outfits">
+      <h2>Outfits</h2>
+      <div class="outfit-grid">
+        <% @user.outfits.each do |outfit| %>
+          <%= render partial: "outfits/card", locals: { outfit: outfit } %>
         <% end %>
       </div>
     </div>
   </div>
-
-  <!-- Outfits -->
-  <div class="user-outfits">
-    <h2>Outfits</h2>
-    <div class="outfit-grid">
-      <% @user.outfits.each do |outfit| %>
-        <%= render partial: "outfits/card", locals: { outfit: outfit } %>
-      <% end %>
-    </div>
-  </div>
-
 </div>

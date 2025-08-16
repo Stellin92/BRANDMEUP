@@ -5,9 +5,10 @@
   .user-header {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     gap: 2rem;
     margin-bottom: 3rem;
-    align-items: flex-start;
   }
 
   .user-avatar {
@@ -23,11 +24,14 @@
   }
 
   .user-info {
-    flex: 1;
+    max-width: 400px;
+    // text-align: center;
+    flex: 0 1 auto;
     .username {
       font-family: var(--font-title, "Belleza", sans-serif);
       font-size: 2rem;
       margin-bottom: .5rem;
+      margin-top: .10rem;
     }
     .bio {
       color: var(--color-subtle, #b3b3b8);
@@ -46,12 +50,15 @@
         font-size: .85rem;
         margin-right: .4rem;
         border: 1px solid var(--border, #2a2a30);
-        background: rgba(255,255,255,.05);
+        background: black;
       }
     }
     .user-actions {
       display: flex;
       gap: 1rem;
+    }
+    h1, h2, p {
+      color: #0b0b0d;
     }
   }
 
@@ -63,8 +70,10 @@
     }
     .outfit-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, max-content));
       gap: 1.2rem;
+      justify-content: center;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 520px));
     }
   }
 }
