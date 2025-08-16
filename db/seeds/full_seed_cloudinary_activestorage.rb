@@ -1,27 +1,37 @@
 # db/seeds/full_seed_cloudinary_activestorage.rb
-# Rails >= 7, ActiveStorage configuré avec Cloudinary
-# Modèles attendus :
-# - User has_many :outfits, :feedbacks
-# - Outfit belongs_to :user, has_one_attached :photo, has_many :feedbacks
-# - Feedback belongs_to :user, :outfit (comment:string, score:integer 1..5)
+# Rails 7+, ActiveStorage (service Cloudinary)
+# Modèles:
+#   User has_many :outfits, :feedbacks
+#   Outfit belongs_to :user, has_one_attached :photo, has_many :feedbacks
+#   Feedback belongs_to :user, :outfit (comment:string, score:integer 1..5)
 #
-# Spécificités demandées :
-# - Images déjà sur Cloudinary -> on ATTACHE via URL Cloudinary (pas d’upload local)
-# - On efface l’existant (users/outfits/feedbacks)
-# - PAS de chats/messages
-# - Feedbacks par d’autres users (2..4) par outfit
+# Spécifications:
+# - AUCUN chat/message
+# - Feedbacks par d'autres users (2..4 / outfit)
+# - Images: si un fichier local existe => on l'attache
+#           sinon => on attache via URL Cloudinary (public_id déjà présent)
+#
+# Pré-requis:
+# - ENV["CLOUDINARY_CLOUD_NAME"] (ou configure CLOUDINARY_URL)
+# - Dossier local optionnel: db/seeds/images/
+#     - user_01_profile.jpg
+#     - user_01_outfit_1.jpg ... user_01_outfit_6.jpg
+# - Convention Cloudinary (modifiable plus bas):
+#     profiles: "brandmeup/users/user_01/profile"
+#     outfits : "brandmeup/outfits/user_01_1" ... _6
 
 require "faker"
-require "open-uri" # pour URI.open
+require "open-uri"   # pour URI.open
 require "securerandom"
 
-puts "🌱 Reseed BrandMeUp (Cloudinary + ActiveStorage)…"
+puts "🌱 Reseed BrandMeUp (fallback local → Cloudinary)…"
 
 # ---------- CONFIG ----------
-SEGMENTS    = %w[dj entrepreneur athlete].freeze
-STYLES      = %w[urban sporty edgy clean bold].freeze
-GOALS       = %w[visibility connection inspiration credibility].freeze
-OUTFITS_PER_USER = 6
+IMAGES_DIR        = Rails.root.join("db/seeds/images")
+SEGMENTS          = %w[dj entrepreneur athlete].freeze
+STYLES            = %w[urban sporty edgy clean bold].freeze
+GOALS             = %w[visibility connection inspiration credibility].freeze
+OUTFITS_PER_USER  = 6
 
 FEEDBACK_POSITIVE = [
   "Love the color balance and silhouette.",
@@ -37,12 +47,10 @@ FEEDBACK_CONSTRUCTIVE = [
   "Maybe simplify accessories for a sharper focus."
 ].freeze
 
-# IMPORTANT : indique ici les public_id Cloudinary déjà existants pour éviter tout ré-upload.
-# Convention conseillée :
-#   profiles:  "brandmeup/users/user_01/profile"
-#   outfits :  "brandmeup/outfits/user_01_1", "brandmeup/outfits/user_01_2", …
-#
-# Remplis/ajuste selon TES public_id réels.
+# Map public_id Cloudinary par défaut (ADAPTE si tu as une autre convention)
+CLOUD_NAME = ENV["CLOUDINARY_CLOUD_NAME"] || ENV["CLOUDINARY_CLOUD_NAME".downcase]
+raise "Missing ENV CLOUDINARY_CLOUD_NAME" unless CLOUD_NAME.present?
+
 CLOUDINARY_PUBLIC_IDS = (1..24).each_with_object({}) do |idx, h|
   user_key = format("user_%02d", idx)
   h[user_key] = {
@@ -51,27 +59,54 @@ CLOUDINARY_PUBLIC_IDS = (1..24).each_with_object({}) do |idx, h|
   }
 end
 
-def cloudinary_url(public_id)
-  # URL directe du fichier original.
-  # Si tu veux une transformation (ex: format jpg), tu peux utiliser Cloudinary::Utils.cloudinary_url(public_id, fetch_format: "jpg")
-  # mais l’URL simple marche généralement pour attacher via ActiveStorage.
-  "https://res.cloudinary.com/#{ENV.fetch('CLOUDINARY_CLOUD_NAME')}/image/upload/#{public_id}"
+# ---------- HELPERS ----------
+def img_path_for(user_idx, kind, outfit_idx = nil)
+  if kind == :profile
+    IMAGES_DIR.join(format("user_%02d_profile.jpg", user_idx))
+  else
+    IMAGES_DIR.join(format("user_%02d_outfit_%d.jpg", user_idx, outfit_idx))
+  end
 end
 
-def attach_cloudinary_image!(record, public_id, filename: nil, content_type: "image/jpeg")
-  url = cloudinary_url(public_id)
-  io  = URI.open(url)
-  record.photo.attach(
-    io: io,
-    filename: filename || "#{public_id.split('/').last}.jpg",
-    content_type: content_type
-  )
+def cloudinary_public_id_for(user_idx, kind, outfit_idx = nil)
+  key = format("user_%02d", user_idx)
+  if kind == :profile
+    CLOUDINARY_PUBLIC_IDS.fetch(key)[:profile]
+  else
+    CLOUDINARY_PUBLIC_IDS.fetch(key)[:outfits][outfit_idx - 1]
+  end
+end
+
+def cloudinary_url(public_id)
+  # URL versionnée automatique côté Cloudinary : idéal pour le cache busting
+  "https://res.cloudinary.com/#{CLOUD_NAME}/image/upload/#{public_id}"
+end
+
+def attach_local_or_cloudinary!(record, user_idx:, kind:, outfit_idx: nil)
+  path = img_path_for(user_idx, kind, outfit_idx)
+  if File.exist?(path)
+    record.photo.attach(io: File.open(path), filename: File.basename(path))
+  else
+    public_id = cloudinary_public_id_for(user_idx, kind, outfit_idx)
+    url       = cloudinary_url(public_id)
+    filename  = if kind == :profile
+                  "user_#{format('%02d', user_idx)}_profile.jpg"
+                else
+                  "user_#{format('%02d', user_idx)}_outfit_#{outfit_idx}.jpg"
+                end
+    record.photo.attach(
+      io: URI.open(url),
+      filename: filename,
+      content_type: "image/jpeg"
+    )
+  end
 end
 
 def rand_hex_color
   "##{format('%06x', (rand * 0xffffff))}"
 end
 
+# ---------- SEED ----------
 ActiveRecord::Base.transaction do
   puts "🧹 Cleaning Feedbacks/Outfits/Users…"
   Feedback.delete_all
@@ -98,13 +133,11 @@ ActiveRecord::Base.transaction do
     )
     users << user
 
-    # Attach profile from Cloudinary
-    key = format("user_%02d", idx)
+    # Attach profile (local si présent, sinon Cloudinary)
     begin
-      attach_cloudinary_image!(user, CLOUDINARY_PUBLIC_IDS.fetch(key)[:profile],
-                               filename: "#{key}_profile.jpg")
+      attach_local_or_cloudinary!(user, user_idx: idx, kind: :profile)
     rescue => e
-      warn "⚠️ Profile image missing for #{key} (#{e.class}: #{e.message}) — skipping."
+      warn "⚠️ Profile image missing for user_#{format('%02d', idx)} (#{e.class}: #{e.message}) — skipping."
     end
   end
 
@@ -112,8 +145,6 @@ ActiveRecord::Base.transaction do
   users.each_with_index do |owner, i|
     idx     = i + 1
     segment = SEGMENTS[(idx - 1) % SEGMENTS.size]
-    key     = format("user_%02d", idx)
-    outfit_ids = CLOUDINARY_PUBLIC_IDS.fetch(key)[:outfits]
 
     OUTFITS_PER_USER.times do |j|
       outfit_idx  = j + 1
@@ -132,14 +163,13 @@ ActiveRecord::Base.transaction do
         public: [true, false].sample
       )
 
-      # Attach outfit image from Cloudinary
       begin
-        attach_cloudinary_image!(outfit, outfit_ids[j], filename: "#{key}_outfit_#{outfit_idx}.jpg")
+        attach_local_or_cloudinary!(outfit, user_idx: idx, kind: :outfit, outfit_idx: outfit_idx)
       rescue => e
-        warn "⚠️ Outfit image missing for #{key} [##{outfit_idx}] (#{e.class}: #{e.message}) — skipping."
+        warn "⚠️ Outfit image missing for user_#{format('%02d', idx)} [##{outfit_idx}] (#{e.class}: #{e.message}) — skipping."
       end
 
-      # === Feedbacks (2..4) par d'autres utilisateurs (pas l’owner) ===
+      # Feedbacks (2..4) par d'autres users (jamais le owner)
       feedback_authors = (users - [owner]).sample(rand(2..4))
       feedback_authors.each do |_author|
         positive = rand < 0.75
