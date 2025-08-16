@@ -24,9 +24,9 @@
           <li class="nav-item active" style="margin: auto 10px;">
             <%= link_to user_path(current_user) do %>
               <% if current_user.photo.key %>
-                <%= cl_image_tag current_user.photo.key, height: 75, width: 75, crop: :fill, gravity: :face, radius: :max, alt: "Avatar", class: "avatar" %>
+                <%= image_tag current_user.photo.key, height: 75, width: 75, crop: :fill, gravity: :face, radius: :max, alt: "Avatar", class: "avatar" %>
               <% else %>
-                <%= cl_image_tag("blank-profile-picture-973460_1280_q70y1j", height: 150, width: 150, crop: :face)%>
+                <%= image_tag("blank-profile-picture-973460_1280_q70y1j", height: 150, width: 150, crop: :face)%>
               <% end %>
             <% end %>
           </li>

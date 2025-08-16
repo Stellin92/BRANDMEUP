@@ -2,8 +2,8 @@
     <%= link_to outfit_path(outfit, modal: 1),
             data: { turbo_frame: "outfit_modal" } do %>
       <div class="outfit-card__media">
-        <% if outfit.photo.key.present? %>
-          <%= cl_image_tag outfit.photo.key, alt: outfit.title %>
+        <% if url_for(outfit.photo).present? %>
+          <%= image_tag url_for(outfit.photo), alt: outfit.title %>
         <% end %>
       </div>
       <div class="outfit-card__body">

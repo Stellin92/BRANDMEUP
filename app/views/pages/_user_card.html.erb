@@ -1,11 +1,11 @@
 <%= link_to user_path(user), class: "user-card" do %>
   <div class="user-card__media">
     <% if user.respond_to?(:photo) && user.photo&.attached? %>
-      <%= cl_image_tag user.photo.key, alt: user.username %>
+      <%= image_tag user.photo.key, alt: user.username %>
     <% elsif user.respond_to?(:avatar_url) && user.avatar_url.present? %>
       <%= image_tag user.avatar_url, alt: user.username %>
     <% else %>
-      <%= cl_image_tag "blank-profile-picture-973460_1280_q70y1j.png", alt: user.username %>
+      <%= image_tag "blank-profile-picture-973460_1280_q70y1j.png", alt: user.username %>
     <% end %>
   </div>
 
