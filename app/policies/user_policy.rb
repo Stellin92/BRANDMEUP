@@ -41,6 +41,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def inbox?
-    user == record
+    true
   end
 end
