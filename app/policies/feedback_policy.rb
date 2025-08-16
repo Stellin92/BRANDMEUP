@@ -25,7 +25,7 @@ class FeedbackPolicy < ApplicationPolicy
   end
 
   def create?
-    user == record.user
+    user.present?
   end
 
   def edit?

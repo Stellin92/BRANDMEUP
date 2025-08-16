@@ -2,9 +2,9 @@
 <div class="feedback">
   <div class="feedback__avatar">
     <% if feedback.user.respond_to?(:photo) && feedback.user.photo&.attached? %>
-      <%= image_tag url_for(feedback.user.photo) %>
+      <%= cl_image_tag feedback.user.photo.key %>
     <% else %>
-      <%= image_tag "blank-profile-picture-973460_1280_q70y1j.png" %>
+      <%= cl_image_tag "blank-profile-picture-973460_1280_q70y1j.png" %>
     <% end %>
   </div>
   <div class="feedback__body">
@@ -12,7 +12,7 @@
       <strong><%= feedback.user.username %></strong>
       <span class="time"><%= time_ago_in_words(feedback.created_at) %> ago</span>
     </div>
-    <p><%= simple_format(feedback.commen) %></p>
+    <p><%= simple_format(feedback.comment) %></p>
     <%# si tu as rating, tu peux l’ajouter ici %>
   </div>
 </div>

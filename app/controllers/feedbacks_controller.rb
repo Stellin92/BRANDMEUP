@@ -33,41 +33,35 @@ class FeedbacksController < ApplicationController
   end
 
   def create
-    @feedback = @outfit.feedbacks.build(feedback_params.merge(user: current_user))
+  @feedback = @outfit.feedbacks.build(feedback_params.merge(user: current_user))
 
-    if @feedback.save
-      respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: [
-            # ajoute uniquement le nouveau feedback
-            turbo_stream.append(
-              dom_id(@outfit, :feedbacks),
-              partial: "feedbacks/feedback",
-              locals: { feedback: @feedback }
-            ),
-            # réinitialise le formulaire
-            turbo_stream.replace(
-              dom_id(@outfit, :new_feedback),
-              partial: "feedbacks/form",
-              locals: { outfit: @outfit, feedback: Feedback.new }
-            )
-          ]
-        end
-        format.html { redirect_to outfit_path(@outfit) }
-      end
-    else
-      respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(
-            dom_id(@outfit, :new_feedback),
-            partial: "feedbacks/form",
-            locals: { outfit: @outfit, feedback: @feedback }
-          )
-        end
-        format.html { render "outfits/show", status: :unprocessable_entity }
-      end
-    end
+  authorize @feedback
+
+  if @feedback.save
+    list_id = view_context.dom_id(@outfit, :feedbacks)
+    form_id = view_context.dom_id(@outfit, :new_feedback)
+
+    render turbo_stream: [
+      turbo_stream.append(
+        list_id,
+        partial: "feedbacks/feedback",
+        locals: { feedback: @feedback }
+      ),
+      turbo_stream.replace(
+        form_id,
+        partial: "feedbacks/form",
+        locals: { outfit: @outfit, feedback: Feedback.new }
+      )
+    ]
+  else
+    form_id = view_context.dom_id(@outfit, :new_feedback)
+    render turbo_stream: turbo_stream.replace(
+      form_id,
+      partial: "feedbacks/form",
+      locals: { outfit: @outfit, feedback: @feedback }
+    )
   end
+end
 
   def set_feedback
     @feedback = Feedback.find(params[:id])
