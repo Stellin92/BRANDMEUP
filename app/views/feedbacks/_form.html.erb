@@ -1,0 +1,16 @@
+<!-- app/views/feedbacks/_form.html.erb -->
+<%= form_with model: [outfit, feedback],
+              data: { turbo_frame: dom_id(outfit, :feedbacks) } do |f| %>
+  <div class="feedback-form">
+    <%= f.text_area :comment, rows: 2, placeholder: "Write your feedback…" %>
+    <%= f.submit "Send", class: "btn btn-flat" %>
+  </div>
+
+  <% if feedback.errors.any? %>
+    <ul class="form-errors">
+      <% feedback.errors.full_messages.each do |m| %>
+        <li><%= m %></li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

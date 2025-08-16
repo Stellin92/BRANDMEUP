@@ -14,6 +14,11 @@ class OutfitsController < ApplicationController
 
     def show
     authorize @outfit
+    if params[:modal].present?
+      render partial: "outfits/modal", locals: { outfit: @outfit }
+    else
+      render :show
+    end
     skip_policy_scope
   end
 
@@ -28,7 +33,7 @@ class OutfitsController < ApplicationController
   def update
     authorize @outfit
     if @outfit.update(outfit_params)
-      redirect_to outfit_path(@outfit), notice: "Profile updated!"
+      redirect_to user_path(@outfit.user), notice: "Profile updated!"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -49,11 +54,11 @@ class OutfitsController < ApplicationController
     end
   end
 
+  private
+
   def set_outfit
     @outfit = Outfit.find(params[:id])
   end
-
-  private
 
   def outfit_params
     params.require(:outfit).permit(:title, :description, :style, :goal, :photo, items_list: [], color_set: [])

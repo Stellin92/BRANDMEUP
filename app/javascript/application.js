@@ -11,3 +11,6 @@ const application = Application.start()
 import PreviewController from "./controllers/preview_controller"
 application.register("preview", PreviewController)
 // import "./controllers"
+
+import ModalController from "./controllers/modal_controller.js";
+application.register("modal", ModalController)

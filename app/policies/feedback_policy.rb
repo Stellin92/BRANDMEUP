@@ -25,7 +25,7 @@ class FeedbackPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    user == record.user
   end
 
   def edit?

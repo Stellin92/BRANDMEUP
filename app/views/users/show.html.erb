@@ -28,6 +28,7 @@
         <div class="user-actions">
           <% if current_user == @user %>
             <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-flat" %>
+            <%= link_to "New Outfit", "/outfits/new", class: "btn btn-flat" %>
           <% else %>
             <%= link_to "Message", inbox_user_path(@user), class: "btn btn-flat" %>
           <% end %>
@@ -45,5 +46,12 @@
         <% end %>
       </div>
     </div>
+  </div>
+  <div class="modal-overlay"
+       data-controller="modal"
+       data-modal-target="overlay"
+       data-action="click->modal#backdrop"
+       hidden>
+    <turbo-frame id="outfit_modal" data-modal-target="frame"></turbo-frame>
   </div>
 </div>

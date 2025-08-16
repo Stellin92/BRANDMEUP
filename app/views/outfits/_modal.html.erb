@@ -1,0 +1,72 @@
+<!-- app/views/outfits/_modal.html.erb -->
+<turbo-frame id="outfit_modal">
+  <div class="modal-panel">
+    <button class="modal-close" data-action="click->modal#close" aria-label="Close">✕</button>
+
+    <header class="outfit-modal__header">
+      <h2 class="outfit-title"><%= outfit.title %></h2>
+    </header>
+
+    <div class="outfit-modal__grid">
+      <aside class="outfit-modal__left">
+        <div class="field">
+          <h3>Description</h3>
+          <p><%= outfit.description %></p>
+        </div>
+        <div class="field">
+          <h3>Style</h3>
+          <p><%= outfit.style %></p>
+        </div>
+        <div class="field">
+          <h3>Color set</h3>
+          <div class="color-row">
+            <% Array(outfit.color_set).each do |hex| %>
+              <span class="swatch" style="--sw:<%= hex %>;" title="<%= hex %>"></span>
+            <% end %>
+          </div>
+        </div>
+        <div class="field">
+          <h3>Items</h3>
+          <ul class="items">
+            <% Array(outfit.items_list).each do |it| %>
+              <li><%= it %></li>
+            <% end %>
+          </ul>
+        </div>
+      </aside>
+
+      <div class="outfit-modal__photo">
+        <% if outfit.photo.present? %>
+          <%= cl_image_tag outfit.photo.key, alt: outfit.title %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="outfit-modal__actions">
+      <% if current_user == outfit.user %>
+        <%= link_to "Edit",
+                    edit_outfit_path(outfit),
+                    data: {turbo_frame: "_top"},
+                    class: "btn btn-secondary" %>
+      <% end %>
+      <%= link_to "Download PDF", outfit_path(outfit, format: :pdf), class: "btn btn-flat" %>
+    </div>
+
+    <!-- FEEDBACKS -->
+    <section class="feedbacks">
+      <h3>Feedback</h3>
+
+      <!-- Liste -->
+      <%= turbo_frame_tag dom_id(outfit, :feedbacks) do %>
+        <div class="feedbacks-list">
+          <%= render partial: "feedbacks/feedback", collection: outfit.feedbacks.includes(:user).order(created_at: :asc), as: :feedback %>
+        </div>
+      <% end %>
+
+      <!-- Formulaire -->
+      <%= turbo_frame_tag dom_id(outfit, :new_feedback) do %>
+        <%= render "feedbacks/form", outfit: outfit, feedback: Feedback.new %>
+      <% end %>
+    </section>
+  </div>
+</turbo-frame>

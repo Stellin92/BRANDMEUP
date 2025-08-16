@@ -1,13 +1,14 @@
-<div class="outfit-card">
-  <%= link_to outfit_path(outfit) do %>
-    <div class="outfit-card__media">
-      <% if outfit.photo.key.present? %>
-        <%= cl_image_tag outfit.photo.key, alt: outfit.title %>
-      <% end %>
-    </div>
-    <div class="outfit-card__body">
-      <h3><%= outfit.title %></h3>
-      <p><%= truncate(outfit.description, length: 80) %></p>
-    </div>
-  <% end %>
-</div>
+  <div class="outfit-card">
+    <%= link_to outfit_path(outfit, modal: 1),
+            data: { turbo_frame: "outfit_modal" } do %>
+      <div class="outfit-card__media">
+        <% if outfit.photo.key.present? %>
+          <%= cl_image_tag outfit.photo.key, alt: outfit.title %>
+        <% end %>
+      </div>
+      <div class="outfit-card__body">
+        <h3><%= outfit.title %></h3>
+        <p><%= truncate(outfit.description, length: 80) %></p>
+      </div>
+    <% end %>
+  </div>
