@@ -1,0 +1,19 @@
+<div class="users-grid">
+  <% users.each do |user| %>
+    <%= render partial: "user_card", locals: { user: user } %>
+  <% end %>
+</div>
+
+<%# --- Bouton Load more (si on n’a pas tout affiché) --- %>
+<% per_page = 12
+   shown    = page * per_page
+   has_more = total && shown < total %>
+
+<% if has_more %>
+  <div class="load-more">
+    <%= link_to "Load more",
+                discovery_path(page: page + 1),
+                class: "btn btn-primary",
+                data: { turbo_frame: "users" } %>
+  </div>
+<% end %>

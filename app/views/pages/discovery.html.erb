@@ -1,26 +1,35 @@
-<div class="banner">
+<div class="discovery-hero">
   <div class="container">
     <h1>Discover what the other users have created and connect with them</h1>
-    <p>Inspire each other, connect, exchange, grow together.</p>
+    <p class="lead">Inspire each other, connect, exchange, grow together.</p>
   </div>
 </div>
-<div class="row">
+
+<div class="discovery-grid-section">
+  <div class="container">
+    <%= turbo_frame_tag "users" do %>
+    <%= render partial: "users_grid",
+               locals: { users: @users, page: @page, total: @total }%>
+    <% end %>
+  </div>
+</div>
+
+<div class="users-grid">
   <% User.all.each do |user| %>
-    <div class="outfit-card col-12 col-sm-6 col-md-4">
-      <%= link_to user_path(user) do %>
-        <div class="card-inner">
-          <% if user.photo.key %>
-            <%= cl_image_tag user.photo.key, class: "outfit-image" %>
-          <% else %>
-            <%= cl_image_tag("blank-profile-picture-973460_1280_q70y1j", class: "outfit-image")%>
-          <% end %>
-          <h3 class="outfit-title"><%= user.username %></h3>
-          <div class="card-actions">
-            <h3 class="outfit-title"><%= user.username %></h2>
-            <p><%= user.talent %></p>
-          </div>
-        </div>
-      <% end %>
-    </div>
+    <%= render partial: "user_card", locals: { user: user } %>
   <% end %>
 </div>
+
+<%# --- Bouton Load more (si on n’a pas tout affiché) --- %>
+<%# <% per_page = 12 %>
+   <%# shown    = page * per_page %>
+   <%# has_more = total && shown < total %>
+
+<%# <% if has_more %>
+  <%# <div class="load-more"> %>
+    <%# <%= link_to "Load more", %>
+                <%# discovery_path(page: page + 1), %>
+                <%# class: "btn btn-primary", %>
+                <%# data: { turbo_frame: "users" } %>
+  <%# </div> %>
+<%# <% end %>

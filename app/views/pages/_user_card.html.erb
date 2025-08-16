@@ -1,0 +1,26 @@
+<%= link_to user_path(user), class: "user-card" do %>
+  <div class="user-card__media">
+    <% if user.respond_to?(:photo) && user.photo&.attached? %>
+      <%= cl_image_tag user.photo.key, alt: user.username %>
+    <% elsif user.respond_to?(:avatar_url) && user.avatar_url.present? %>
+      <%= image_tag user.avatar_url, alt: user.username %>
+    <% else %>
+      <%= cl_image_tag "blank-profile-picture-973460_1280_q70y1j.png", alt: user.username %>
+    <% end %>
+  </div>
+
+  <div class="user-card__body">
+    <h3 class="user-card__title"><%= user.username.presence || "Unknown user" %></h3>
+    <% if user.respond_to?(:talent) && user.talent.present? %>
+      <p class="user-card__subtitle"><%= user.talent %></p>
+    <% end %>
+
+    <% if user.respond_to?(:values) && user.values.present? %>
+      <div class="user-card__tags">
+        <% Array(user.values).first(3).each do |val| %>
+          <span class="tag"><%= val %></span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
