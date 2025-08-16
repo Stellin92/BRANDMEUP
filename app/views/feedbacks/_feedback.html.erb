@@ -9,7 +9,11 @@
   </div>
   <div class="feedback__body">
     <div class="feedback__meta">
-      <strong><%= feedback.user.username %></strong>
+      <%= link_to user_path(feedback.user),
+                  data: {turbo_frame: "_top"},
+                  class: "user-comment-link" do %>
+        <strong><%= feedback.user.username %></strong>
+      <% end %>
       <span class="time"><%= time_ago_in_words(feedback.created_at) %> ago</span>
     </div>
     <p><%= simple_format(feedback.comment) %></p>
