@@ -48,6 +48,13 @@
                     edit_outfit_path(outfit),
                     data: {turbo_frame: "_top"},
                     class: "btn btn-secondary" %>
+        <%= button_to "Delete",
+                    outfit_path(outfit),
+                    method: :delete,
+                    data: {
+                      turbo_confirm: "Are you sure you want to delete this outfit?",
+                      turbo_frame: "_top"},
+                    class: "btn btn-secondary" %>
       <% end %>
       <%= link_to "Download PDF", outfit_path(outfit, format: :pdf), class: "btn btn-flat" %>
     </div>

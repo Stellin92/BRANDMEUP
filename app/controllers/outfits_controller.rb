@@ -1,6 +1,6 @@
 class OutfitsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  before_action :set_outfit, only: [:show, :edit, :update]
+  before_action :set_outfit, only: [:show, :edit, :update, :destroy]
 
   def outfits
     @outfit = Outfit.all
@@ -27,7 +27,12 @@ class OutfitsController < ApplicationController
   end
 
   def destroy
+    @outfit.destroy
     authorize @outfit
+    respond_to do |format|
+      format.html { redirect_to user_path(@outfit.user), notice: "Outfit was successfully deleted." }
+      format.turbo_stream
+    end
   end
 
   def update

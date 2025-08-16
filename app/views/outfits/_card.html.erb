@@ -1,4 +1,4 @@
-  <div class="outfit-card">
+<div id="<%= dom_id(outfit) %>" class="outfit-card">
     <%= link_to outfit_path(outfit, modal: 1),
             data: { turbo_frame: "outfit_modal" } do %>
       <div class="outfit-card__media">
@@ -11,4 +11,4 @@
         <p><%= truncate(outfit.description, length: 80) %></p>
       </div>
     <% end %>
-  </div>
+</div>
