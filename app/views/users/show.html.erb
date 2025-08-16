@@ -1,89 +1,47 @@
-<div class="d-flex justify-content-center">
-  <% if @user.photo.key %>
-    <%= cl_image_tag @user.photo.key, height: 300, width: 300, crop: :fill, class: "rounded-circle" %>
-  <% else %>
-    <%= cl_image_tag("blank-profile-picture-973460_1280_q70y1j", height: 300, width: 300, crop: :fill, class: "rounded-circle")%>
-  <% end %>
-</div>
-<div class="d-flex justify-content-center">
-  <% if current_user == @user %>
-  <% else %>
-    <%= form_with url: user_chats_path(current_user), method: :post, local: true do %>
-      <%= hidden_field_tag :partner_id, @user.id %>
-      <%= submit_tag "Connect", class: "btn btn-flat" %>
-    <% end %>
-  <% end %>
-</div>
+<div class="user-page container">
 
-<div class="d-flex justify-content-center" style="margin: 24px auto;">
-  <%= link_to "Edit my profile", edit_user_path(current_user), class: "btn-new-outfit", style: "margin: 0 12px;" %>
-  <%= link_to "Create an outfit", new_outfit_path, class: "btn-new-outfit", style: "margin: 0 12px;"%>
-</div>
+  <!-- Header profile -->
+  <div class="user-header">
+    <div class="user-avatar">
+      <% if @user.photo.attached? %>
+        <%= cl_image_tag @user.photo.key, alt: @user.username, class: "avatar-img" %>
+      <% else %>
+        <%= cl_image_tag "blank-profile-picture-973460_1280_q70y1j.png", alt: @user.username, class: "avatar-img" %>
+      <% end %>
+    </div>
 
-<div class="banner" style="background-color: #c8c3fe;">
-  <div class="container">
-    <h1><%= @user.username %>'s profile</h1>
-    <p><%= @user.bio%></p>
-    <div class="ul">
-      <div class="li"><strong>Talent</strong> <%= @user.talent %></div>
-      <div class="li"><strong>Values</strong>
-          <% @user.values.each do |value|%>
-          <span><%= value %></span>
+    <div class="user-info">
+      <h1 class="username"><%= @user.username %></h1>
+      <p class="bio"><%= @user.bio %></p>
+      <% if @user.talent.present? %>
+        <p class="talent"><strong>Talent:</strong> <%= @user.talent %></p>
+      <% end %>
+      <% if @user.values.present? %>
+        <div class="values">
+          <% Array(@user.values).first(3).each do |val| %>
+            <span class="tag"><%= val %></span>
           <% end %>
+        </div>
+      <% end %>
+
+      <div class="user-actions">
+        <% if current_user == @user %>
+          <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-secondary" %>
+        <% else %>
+          <%= link_to "Message", inbox_user_path(@user), class: "btn btn-primary" %>
+        <% end %>
       </div>
     </div>
   </div>
-</div>
 
-<% if @user.has_outfit? %>
-  <h2 class="d-flex justify-content-center">The outfits</h2>
-  <div class="row">
-  <% @user.outfits.each do |outfit| %>
-    <div class="outfit-card col-12 col-sm-6 col-md-4">
-      <div class="card-inner">
-        <% if outfit.photo.attached? %>
-          <%= link_to outfit_path(outfit) do%>
-            <%= cl_image_tag outfit.photo.key, class: "outfit-image" %>
-          <% end %>
-        <% else %>
-          <%= cl_image_tag "blank-profile-picture-973460_1280_q70y1j", class: "outfit-image" %>
-        <% end %>
+  <!-- Outfits -->
+  <div class="user-outfits">
+    <h2>Outfits</h2>
+    <div class="outfit-grid">
+      <% @user.outfits.each do |outfit| %>
+        <%= render partial: "outfits/card", locals: { outfit: outfit } %>
+      <% end %>
+    </div>
+  </div>
 
-        <h3 class="outfit-title"><%= outfit.title %></h3>
-        <% if current_user == @user %>
-          <div class="card-actions">
-            <%= link_to "Edit", edit_outfit_path(outfit), class: "btn btn-flat" %>
-            <%= link_to "Delete", outfit_path(outfit), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-flat"%>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-  <% if current_user == @user %>
-    <!-- > <div class="d-flex justify-content-center mt-4">
-      <%= link_to "New Outfit", new_outfit_path, class: "btn-new-outfit" %>
-    </div> <-->
-  <% end %>
 </div>
-<% else %>
-  <% if current_user == @user %>
-    <div class="banner" style="background-color: #c8c3fe;">
-      <div class="container">
-        <h2>No outfit yet ?</h2>
-        <p>Your profile feels naked without an outfit to wear. Let's change that now!</p>
-        <%= link_to "Outfits Creator", "/outfits/new", class: "btn btn-flat"%>
-      </div>
-    </div>
-  <% else %>
-    <div class="banner" style="background-color: #c8c3fe;">
-      <div class="container">
-        <h2>No outfit from <%= @user.username%> yet</h2>
-        <p><%= @user.username%> has not created his first outfit. You could send a message and propose your help.</p>
-        <%= form_with url: user_chats_path(current_user), method: :post, local: true do %>
-          <%= hidden_field_tag :partner_id, @user.id %>
-          <%= submit_tag "Send a message", class: "btn btn-flat" %>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-<% end %>
