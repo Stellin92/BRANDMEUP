@@ -1,7 +1,7 @@
 <%= link_to user_path(user), class: "user-card" do %>
   <div class="user-card__media">
     <% if user.respond_to?(:photo) && user.photo&.attached? %>
-      <%= image_tag user.photo.key, alt: user.username %>
+      <%= image_tag url_for(user.photo), alt: user.username %>
     <% elsif user.respond_to?(:avatar_url) && user.avatar_url.present? %>
       <%= image_tag user.avatar_url, alt: user.username %>
     <% else %>
