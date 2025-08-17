@@ -7,18 +7,14 @@
 
 <div class="discovery-grid-section">
   <div class="container">
-    <%= turbo_frame_tag "users" do %>
-    <%= render partial: "users_grid",
-               locals: { users: @users, page: @page, total: @total }%>
-    <% end %>
-  </div>
+    <div class="users-grid">
+      <% User.all.each do |user| %>
+        <%= render partial: "user_card", locals: { user: user } %>
+      <% end %>
+    </div>
 </div>
 
-<div class="users-grid">
-  <% User.all.each do |user| %>
-    <%= render partial: "user_card", locals: { user: user } %>
-  <% end %>
-</div>
+
 
 <%# --- Bouton Load more (si on n’a pas tout affiché) --- %>
 <%# <% per_page = 12 %>

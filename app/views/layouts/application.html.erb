@@ -15,12 +15,31 @@
   </head>
 
   <body class="with-background">
-    <%# <div class="max-w-6xl mx-auto px-4"> %>
-      <%= render "shared/navbar" %>
-      <%= render "shared/flashes" %>
+    <%= render "shared/navbar" %>
+    <%= render "shared/flashes" %>
+    <%= yield %>
+    <%= render "shared/footer" %>
 
-      <%= yield %>
-      <%= render "shared/footer" %>
-    <%# </div> %>
+    <!-- app/views/layouts/application.html.erb -->
+    <div data-controller="inbox">
+      <div class="inbox-overlay"
+          data-inbox-target="overlay"
+          data-action="click->inbox#close"></div>
+
+      <div id="inbox-drawer"
+          class="inbox-drawer is-open"
+          data-inbox-target="drawer">
+        <% if user_signed_in? %>
+          <div class="inbox-header">
+            <div class="inbox-title">Inbox</div>
+            <button class="btn btn-sm btn-outline-secondary ms-auto" data-action="inbox#close">Close</button>
+          </div>
+          <%= turbo_frame_tag "inbox", src: user_chats_path(current_user), loading: "lazy", data: { action: "turbo:frame-load->inbox#open" } %>
+        <% else %>
+          <%= turbo_frame_tag "inbox" %>
+        <% end %>
+      </div>
+    </div>
+
   </body>
 </html>

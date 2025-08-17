@@ -1,25 +1,31 @@
-<div class="container chat">
-  <h1>Your chat with <%= @chat.partner.username %></h1>
-  <% if @chat.has_message? %>
-  <div id="messages" class="messages">
-    <% @chat.messages.each do |message| %>
-      <div id="message-<%= message.id %>">
-        <small>
-          <strong><%= message.user.username %></strong>
-          <i><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></i>
-        </small>
-        <p><%= message.content %></p>
+<%= turbo_frame_tag "inbox" do %>
+  <div data-controller="inbox-opener"></div>
+  <%= turbo_stream_from @chat %>
+
+  <div class="inbox-panel">
+    <div class="inbox-header">
+      <%= link_to "← All", user_chats_path(current_user), data: { turbo_frame: "inbox" }, class: "inbox-back" %>
+      <div class="inbox-title">
+        <% other = @chat.other_user(current_user) %>
+        <%= other.respond_to?(:username) ? other.username : "Chat" %>
       </div>
-    <% end %>
+    </div>
+
+    <div id="<%= dom_id(@chat, :messages) %>"
+         class="inbox-messages"
+         data-controller="auto-scroll">
+      <%= render @messages %>
+    </div>
+
+    <div class="inbox-composer">
+      <%= form_with url: user_chat_messages_path(current_user, @chat),
+                    method: :post,
+                    data: { turbo_frame: "inbox" } do %>
+        <div class="composer-row">
+          <textarea name="content" class="form-control" rows="2" placeholder="Write a message..." required></textarea>
+          <button class="btn btn-primary ms-2" type="submit">Send</button>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <% else %>
-    <p>You haven't started to chat with <%= @chat.partner.username %></p>
-  <% end %>
-  <p>Form to create</p>
-  <%= form_with model: [current_user, @chat, Message.new], local: true, html: {class: "d-flex"} do |f| %>
-    <% @partner = current_user == @chat.partner ? @chat.user : @chat.partner %>
-    <%= f.text_area :content, placeholder: "Your message", required: :true, class: "flex-grow-1" %>
-    <%= f.submit "Send", class: "btn-new-outfit mb-3" %>
-  <% end %>
-  <%= link_to "Back to your inbox", inbox_user_path(current_user), class: "btn-new-outfit"%>
-</div>
+<% end %>

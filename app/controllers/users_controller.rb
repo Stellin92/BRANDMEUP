@@ -1,21 +1,16 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  before_action :set_user, only: [:show, :edit, :update]
-
-  def users
-    @users = User.all
-  end
+  before_action :set_user, only: [:show, :edit, :update, :inbox]
+  after_action :verify_policy_scoped, only: :inbox
 
   def inbox
-    @user = User.find(params[:id])
-    @chats = Chat.where("user_id = ? OR partner_id = ?", current_user.id, current_user.id)
-    authorize @user
+    authorize @user, :inbox?
+    @chats = policy_scope(Chat).includes(:user, :partner).recent_first
+    render "chats/index", layout: false
   end
 
   def show
     authorize @user
-    # @chat = Chat.new
-    skip_policy_scope
   end
 
   def edit
@@ -24,7 +19,7 @@ class UsersController < ApplicationController
 
   def update
     authorize @user
-    if @user.update(user_params)
+    if @user.update(permitted_user_params)
       redirect_to user_path(@user), notice: "Profile updated!"
     else
       render :edit, status: :unprocessable_entity
@@ -34,20 +29,13 @@ class UsersController < ApplicationController
   private
 
   def set_user
-      if params[:id].to_s !~ /\A\d+\z/
-        redirect_to root_path, alert: "Invalid user" and return
-      end
-      @user = User.find(params[:id])
+    if params[:id].to_s !~ /\A\d+\z/
+      redirect_to root_path, alert: "Invalid user" and return
+    end
+    @user = User.find(params[:id])
   end
 
-  def user_params
-    params.require(:user).permit(:bio, :talent, :avatar_url, :username, :photo, :inbox, values: [])
-      .tap do |user_params|
-        %i[values].each do |field|
-          if user_params[field].is_a?(String)
-            user_params[field] = user_params[field].split(',').map(&:strip)
-          end
-        end
-      end
+  def permitted_user_params
+    params.require(:user).permit(policy(@user).permitted_attributes)
   end
 end

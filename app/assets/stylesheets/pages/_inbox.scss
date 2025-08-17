@@ -1,0 +1,113 @@
+/* Drawer latéral */
+.inbox-drawer {
+  position: fixed;
+  top: 0; right: 0;
+  height: 100vh;
+  width: 400px; max-width: 100%;
+  background: #fff;
+  box-shadow: -2px 0 18px rgba(0,0,0,.12);
+  transform: translateX(100%);
+  transition: transform .28s ease-in-out;
+  z-index: 1050;              // au-dessus de la page
+  display: flex; flex-direction: column;
+}
+
+.inbox-drawer.is-open { transform: translateX(0); }
+
+/* Overlay pour fermer au clic */
+.inbox-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.25);
+  z-index: 1040;
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s ease;
+}
+.inbox-overlay.is-visible {
+  opacity: 1; pointer-events: auto;
+}
+
+/* Panel interne */
+.inbox-panel { display: flex; flex-direction: column; height: 100%; min-height: 0;}
+
+.inbox-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 14px; border-bottom: 1px solid #eee;
+}
+.inbox-back { text-decoration: none; color: inherit; }
+.inbox-title { font-weight: 600; }
+
+/* Liste */
+.inbox-list { overflow-y: auto; }
+.inbox-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px; border-bottom: 1px solid #f3f3f3; text-decoration: none; color: inherit;
+}
+.inbox-item:hover { background: #fafafa; }
+.inbox-item-avatar .avatar-xs {
+  width: 36px; height: 36px; border-radius: 50%; object-fit: cover;
+}
+.avatar-xs.placeholder { width: 36px; height: 36px; border-radius: 50%; background: #ddd; }
+.inbox-item-title { font-weight: 600; }
+.inbox-item-sub { font-size: .9rem; color: #666; }
+.inbox-item-meta { margin-left: auto; font-size: .8rem; color: #999; }
+.inbox-empty { padding: 24px; color: #777; }
+
+/* Messages */
+.inbox-messages {
+  flex: 1;
+  min-height: 0;           /* ⚠️ sinon l’overflow pousse le composer hors écran */
+  overflow-y: auto;
+  padding: 12px;
+  background: #f9fafb;
+}
+.msg { margin-bottom: 8px; max-width: 85%; }
+.msg.mine   { margin-left: auto; text-align: right; }
+.msg.theirs { margin-right: auto; text-align: left; }
+.bubble {
+  display: inline-block; padding: 8px 12px; border-radius: 14px;
+  background: #fff; border: 1px solid #eee;
+}
+.msg.mine .bubble { background: #e8f0ff; border-color: #d9e6ff; }
+.meta { font-size: .75rem; color: #888; margin-top: 2px; }
+
+/* Composer */
+.inbox-composer {
+  border-top: 1px solid #eee; padding: 10px;
+  background: #fff;
+}
+.composer-row { display: flex; align-items: flex-end; }
+.composer-row textarea { resize: none; }
+
+/* Le tiroir occupe le viewport et est flex en colonne */
+#inbox-drawer.inbox-drawer {
+  position: fixed;
+  top: 0; right: 0;
+  height: 100vh;
+  width: 400px; max-width: 100%;
+  display: flex;               /* clé */
+  flex-direction: column;      /* clé */
+  min-height: 0;               /* clé */
+}
+
+/* Le turbo-frame doit pouvoir s’étirer et PAS imposer sa hauteur */
+turbo-frame#inbox {
+  display: flex;               /* clé */
+  flex: 1 1 auto;              /* clé */
+  min-height: 0;               /* clé */
+}
+
+/* Le panel interne remplit le frame et laisse scroller la zone messages */
+.inbox-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;              /* clé */
+  min-height: 0;               /* clé */
+}
+
+/* La zone des messages prend le reste et scrolle */
+.inbox-messages {
+  flex: 1 1 auto;              /* clé */
+  min-height: 0;               /* clé */
+  overflow-y: auto;            /* scroll */
+  -webkit-overflow-scrolling: touch;
+}

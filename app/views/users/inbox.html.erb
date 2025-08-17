@@ -2,7 +2,7 @@
   <h1>All your chats</h1>
 
   <div id="chats" class="chats">
-    <%= if @chats %>
+    <%= if @chats. %>
       <% @chats.each do |chat| %>
         <%= link_to user_chat_path(current_user, chat) do %>
           <div id="chat-<%= chat.id %>">

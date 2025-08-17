@@ -2,8 +2,12 @@
     <%= link_to outfit_path(outfit, modal: 1),
             data: { turbo_frame: "outfit_modal" } do %>
       <div class="outfit-card__media">
-        <% if url_for(outfit.photo).present? %>
+        <% if outfit.photo.present? %>
           <%= image_tag url_for(outfit.photo), alt: outfit.title %>
+          <% else %>
+          <%#= image_tag "placeholder_outfit.jpg", height: 300, class: "rounded" %>
+          <!-- ou, si tu utilises Cloudinary: -->
+          <%= cl_image_tag "blank-profile-picture-973460_1280_q70y1j.png", height: 300, class: "rounded" %>
         <% end %>
       </div>
       <div class="outfit-card__body">

@@ -1,0 +1,4 @@
+<div class="msg" data-sender-id="<%= message.user_id %>">
+  <div class="bubble"><%= simple_format(h(message.content)) %></div>
+  <div class="meta"><%= l(message.created_at, format: :short) %></div>
+</div>

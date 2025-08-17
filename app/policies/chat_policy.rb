@@ -1,35 +1,30 @@
 class ChatPolicy < ApplicationPolicy
-  # NOTE: Up to Pundit v2.3.1, the inheritance was declared as
-  # `Scope < Scope` rather than `Scope < ApplicationPolicy::Scope`.
-  # In most cases the behavior will be identical, but if updating existing
-  # code, beware of possible changes to the ancestors:
-  # https://gist.github.com/Burgestrand/4b4bc22f31c8a95c425fc0e30d7ef1f5
+  # record: Chat
 
-  class Scope < ApplicationPolicy::Scope
-    # NOTE: Be explicit about which records you allow access to!
-    def resolve
-      scope.all
-    end
-  end
-
-     def permitted_attributes
-    if user.admin? || user == record.user
-      [:date]
-    else
-      [:tag_list]
-    end
-  end
-
-  def show?
-    user == record.user || user == record.partner
-  end
-
-  def create?
+  def index?
     user.present?
   end
 
-  def destroy?
-    user == record.user || user == record.partner
+  def show?
+    record.involves?(user)
   end
 
+  def create?
+    user.present? &&
+      record.user_id == user.id &&          # l’initiateur doit être l’utilisateur courant
+      record.partner_id.present? &&
+      record.partner_id != user.id          # pas de chat avec soi-même
+  end
+
+  def destroy?
+    show?                                   # un participant peut supprimer la conversation
+  end
+
+  class Scope < Scope
+    # Liste uniquement les chats où l’utilisateur est impliqué
+    def resolve
+      return scope.none unless user
+      scope.where("user_id = :id OR partner_id = :id", id: user.id)
+    end
+  end
 end

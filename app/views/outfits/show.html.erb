@@ -1,5 +1,11 @@
 <div class="main-image d-flex justify-content-center">
-  <%= image_tag url_for(@outfit.photo), height: 300, class: "rounded", crop: :fill %>
+  <% if @outfit.photo.present? %>
+    <%= image_tag url_for(outfit.photo), height: 300, class: "rounded", crop: :fill, alt: outfit.title %>
+    <% else %>
+    <%#= image_tag "placeholder_outfit.jpg", height: 300, class: "rounded" %>
+    <!-- ou, si tu utilises Cloudinary: -->
+    <%= cl_image_tag "blank-profile-picture-973460_1280_q70y1j.png", height: 300, class: "rounded" %>
+  <% end %>
 </div>
 <div class="row">
   <div class="d-flex flex-row justify-content-center"><h1><%= @outfit.title %></h1></div>

@@ -1,0 +1,35 @@
+<%= turbo_frame_tag "inbox" do %>
+  <div class="inbox-panel">
+    <div class="inbox-header">
+      <h5>Messages</h5>
+    </div>
+
+    <div class="inbox-list">
+      <% if @chats.any? %>
+        <% @chats.each do |chat| %>
+          <% other = chat.other_user(current_user) %>
+          <%= link_to user_chat_path(current_user, chat),
+                      data: { turbo_frame: "inbox" },
+                      class: "inbox-item" do %>
+            <div class="inbox-item-avatar">
+              <% if other.respond_to?(:photo) && other.photo&.attached? %>
+                <%= cl_image_tag other.photo.key, class: "avatar-xs", alt: other.username %>
+              <% else %>
+                <div class="avatar-xs placeholder"></div>
+              <% end %>
+            </div>
+            <div class="inbox-item-body">
+              <div class="inbox-item-title"><%= other.username %></div>
+              <div class="inbox-item-sub">
+                <%= chat.messages.last&.content&.truncate(60) || "No messages yet" %>
+              </div>
+            </div>
+            <div class="inbox-item-meta"><%= l(chat.updated_at, format: :short) %></div>
+          <% end %>
+        <% end %>
+      <% else %>
+        <div class="inbox-empty">No chats yet.</div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

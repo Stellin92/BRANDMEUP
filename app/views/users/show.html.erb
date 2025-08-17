@@ -30,7 +30,21 @@
             <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-flat" %>
             <%= link_to "New Outfit", "/outfits/new", class: "btn btn-flat" %>
           <% else %>
-            <%= link_to "Message", user_chats_path(@user), class: "btn btn-flat" %>
+            <div data-controller="quick-message">
+              <a href="#"
+                class="btn btn-primary"
+                data-action="click->quick-message#toggle">
+                Message
+              </a>
+
+              <div class="quick-message d-none" data-quick-message-target="form">
+                <%= form_with url: messages_path, method: :post, data: { turbo_frame: "inbox", action: "turbo:submit-start->inbox#open" } do %>
+                  <%= hidden_field_tag :receiver_id, @user.id %>
+                  <textarea name="content" class="form-control mt-2" rows="3" placeholder="Write your first message..." required></textarea>
+                  <button class="btn btn-success mt-2" type="submit">Send</button>
+                <% end %>
+              </div>
+            </div>
           <% end %>
         </div>
       </div>

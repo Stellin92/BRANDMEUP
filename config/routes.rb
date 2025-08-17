@@ -4,10 +4,12 @@ Rails.application.routes.draw do
     member do
       get :inbox
     end
-    resources :chats, only: [:create, :show, :destroy] do
+    resources :chats, only: [:index, :create, :show, :destroy] do
       resources :messages, only: :create
     end
   end
+
+  post "/messages", to: "messages#create", as: :messages
 
   resources :outfits do
     resources :feedbacks, only: [:new, :create, :show, :edit, :update]

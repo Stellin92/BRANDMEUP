@@ -1,23 +1,27 @@
 class MessagesController < ApplicationController
+  before_action :authenticate_user!
+
   def create
-    @chat = Chat.find(params[:chat_id])
-    @message = Message.new(message_params)
-    @message.chat = @chat
-    @message.user = current_user
-    authorize @message
+    chat =
+      if params[:chat_id].present?
+        # Route nestée: /users/:user_id/chats/:chat_id/messages
+        policy_scope(Chat).find(params[:chat_id]).tap { |c| authorize c, :show? }
+      else
+        # Premier message: POST /messages  (depuis le mini-form du profil)
+        receiver = User.find(params.require(:receiver_id))
+        Chat.between(current_user, receiver) ||
+          Chat.new(user: current_user, partner: receiver).tap { |c| authorize c, :create?; c.save! }
+      end
 
-    puts params.inspect
+    message = chat.messages.build(user: current_user, content: params.require(:content))
+    authorize message
 
-    if @message.save
-      redirect_to user_chat_path(current_user, @chat), notice: "Message sent"
+    if message.save
+      @chat     = chat
+      @messages = chat.messages.includes(:user).order(:created_at)
+      render "chats/show", layout: false, status: :ok
     else
-      redirect_to inbox_user_path(user)
+      render plain: message.errors.full_messages.to_sentence, status: :unprocessable_entity
     end
-  end
-
-  private
-
-  def message_params
-    params.require(:message).permit(:content)
   end
 end

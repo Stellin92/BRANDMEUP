@@ -1,53 +1,44 @@
 class ChatsController < ApplicationController
-  before_action :authenticate_user!, except: [:show]
-  before_action :set_chat, only: [:show, :destroy]
+  before_action :authenticate_user!
+  after_action :verify_policy_scoped, only: :index
 
-  def create
-    @partner = User.find(params[:partner_id])
-
-    existing_chat = Chat.find_by(
-      user: current_user, partner: @partner
-    ) || Chat.find_by(
-      user: @partner, partner: current_user
-    )
-
-    if existing_chat
-      authorize existing_chat, :show?
-      redirect_to user_chat_path(current_user, existing_chat), notice: "There is already a chat created with #{@partner.username}"
-      return
-    end
-
-    @chat = Chat.new(user: current_user, partner: @partner)
-    # @chat.partner = @partner
-    # @chat.user = current_user
-
-    authorize @chat
-    if @chat.save
-      redirect_to user_chat_path(current_user, @chat)
-    else
-      redirect_to user_path(@partner)
-    end
+  def index
+    @chats = policy_scope(Chat).includes(:user, :partner).recent_first
+    render layout: false
   end
 
   def show
-    @chat = Chat.find(params[:id])
-    @message = Message.new
+    @chat = policy_scope(Chat).find(params[:id])
     authorize @chat
+    @messages = @chat.messages.includes(:user).order(:created_at)
+    render layout: false
+  end
+
+  def index
+    @chats = policy_scope(Chat).includes(:user, :partner).recent_first
+    render layout: false
+  end
+
+  def show
+    @chat = policy_scope(Chat).find(params[:id])
+    authorize @chat
+    @messages = @chat.messages.includes(:user).order(:created_at)
+    render layout: false
+  end
+
+  def create
+    partner = User.find(params.require(:partner_id))
+    @chat = Chat.between(current_user, partner) || Chat.new(user: current_user, partner: partner)
+    authorize @chat, :create?
+    @chat.save! unless @chat.persisted?
+    redirect_to user_chat_path(current_user, @chat)
   end
 
   def destroy
+    @chat = policy_scope(Chat).find(params[:id])
     authorize @chat
-    @chat.destroy
-    redirect_to inbox_user_path(current_user), notice: "Chat deleted"
+    @chat.destroy!
+    head :no_content
   end
 
-  private
-
-  def set_chat
-    @chat = Chat.find(params[:id])
-  end
-
-  def chat_params
-    params.require(:chat).permit(date)
-  end
 end
