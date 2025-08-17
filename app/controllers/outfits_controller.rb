@@ -19,6 +19,25 @@ class OutfitsController < ApplicationController
     else
       render :show
     end
+
+    respond_to do |format|
+      format.html # vue show.html.erb existante
+      format.pdf do
+        render pdf: "outfit_#{@outfit.id}",
+               template: "outfits/pdf",     # vue dédiée au PDF (HTML)
+               layout: "pdf",               # layout pdf (voir plus bas)
+               formats: [:html],
+               encoding: "UTF-8",
+               page_size: "A4",
+               margin: { top: 12, bottom: 12, left: 12, right: 12 },
+               footer: {
+                 right: "Page [page] / [toPage]",
+                 spacing: 3
+               },
+               disable_smart_shrinking: true
+      end
+    end
+
     skip_policy_scope
   end
 

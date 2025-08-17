@@ -56,7 +56,11 @@
                       turbo_frame: "_top"},
                     class: "btn btn-secondary" %>
       <% end %>
-      <%= link_to "Download PDF", outfit_path(outfit, format: :pdf), class: "btn btn-flat" %>
+      <%= link_to "Download PDF",
+            outfit_path(@outfit, format: :pdf),
+            class: "btn btn-primary",
+            data: { turbo: false } %>
+
     </div>
 
     <!-- FEEDBACKS -->

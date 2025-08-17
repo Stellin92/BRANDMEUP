@@ -1,0 +1,101 @@
+<!-- app/views/outfits/pdf.html.erb -->
+<% content_for :title, "Outfit ##{@outfit.id}" %>
+
+<section class="sheet">
+  <header class="sheet__header">
+    <div class="brand">
+      <div class="brand__title">Brand Me Up</div>
+      <div class="brand__subtitle">Outfit card</div>
+    </div>
+    <div class="meta">
+      <div><strong>Outfit ID:</strong> <%= @outfit.id %></div>
+      <% if @outfit.user %>
+        <div><strong>User:</strong> <%= @outfit.user.username %></div>
+      <% end %>
+      <% if @outfit.title.present? %>
+        <div><strong>Title:</strong> <%= @outfit.title %></div>
+      <% end %>
+      <% if @outfit.goal.present? %>
+        <div><strong>Goal:</strong> <%= @outfit.goal %></div>
+      <% end %>
+      <% if @outfit.style.present? %>
+        <div><strong>Style:</strong> <%= @outfit.style %></div>
+      <% end %>
+    </div>
+  </header>
+
+  <div class="gallery">
+    <% if @outfit.photo.attached? %>
+      <div class="gallery__main">
+        <%= image_tag url_for(@outfit.photo), alt: "Outfit main photo" %>
+      </div>
+    <% elsif @outfit.photo_url.present? %>
+      <div class="gallery__main">
+        <%= image_tag @outfit.photo_url, alt: "Outfit main photo" %>
+      </div>
+    <% end %>
+
+    <%# Si tu as d'autres images (ex: inspirations), affiche-les façon grille %>
+    <% if @outfit.respond_to?(:inspirations) && @outfit.inspirations.present? %>
+      <div class="gallery__thumbs">
+        <% @outfit.inspirations.first(4).each do |img| %>
+          <div class="thumb">
+            <%= image_tag img, alt: "Inspiration" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @outfit.description.present? %>
+    <section class="block">
+      <h2>Description</h2>
+      <p><%= @outfit.description %></p>
+    </section>
+  <% end %>
+
+  <% if @outfit.items_list.present? %>
+    <section class="block">
+      <h2>Pieces</h2>
+      <ul class="list">
+        <% @outfit.items_list.each do |item| %>
+          <li><%= item %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+  <%# Palette de couleurs si tu la stockes en array de hex %>
+  <% if @outfit.respond_to?(:colors) && @outfit.colors.present? %>
+    <section class="block">
+      <h2>Color palette</h2>
+      <div class="swatches">
+        <% @outfit.colors.each do |hex| %>
+          <div class="swatch">
+            <div class="swatch__color" style="background:<%= hex %>"></div>
+            <div class="swatch__label"><%= hex %></div>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+
+  <%# Feedbacks (positifs/constructifs) si présents %>
+  <% if @outfit.respond_to?(:feedbacks) && @outfit.feedbacks.present? %>
+    <section class="block">
+      <h2>Feedback</h2>
+      <div class="feedback">
+        <% @outfit.feedbacks.each do |fb| %>
+          <div class="feedback__item">
+            <strong><%= fb[:type].to_s.capitalize %>:</strong> <%= fb[:text] %>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+
+  <footer class="sheet__footer">
+    <div>Generated on <%= Time.current.strftime("%Y-%m-%d %H:%M") %></div>
+    <div>brandmeup.net</div>
+  </footer>
+</section>

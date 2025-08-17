@@ -1,0 +1,18 @@
+<!-- app/views/layouts/pdf.html.erb -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title><%= content_for?(:title) ? yield(:title) : "Outfit" %></title>
+
+  <!-- Polices : Poppins / Belleza (webfonts). wkhtmltopdf charge généralement les CSS externes. -->
+  <link href="https://fonts.googleapis.com/css2?family=Belleza&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <%= wicked_pdf_stylesheet_link_tag "pdf" %>
+  <!-- Si tu veux réutiliser quelques classes utilitaires de ton app:
+  <%= wicked_pdf_stylesheet_link_tag "application" %> -->
+</head>
+<body class="pdf">
+  <%= yield %>
+</body>
+</html>
