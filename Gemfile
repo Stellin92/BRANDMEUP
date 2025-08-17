@@ -88,3 +88,4 @@ gem "faker"
 
 gem "wicked_pdf", "~> 2.8"
 gem "wkhtmltopdf-binary", "~> 0.12.6.6"
+gem "grover"

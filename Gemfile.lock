@@ -159,6 +159,8 @@ GEM
       sassc (~> 2.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    grover (1.2.3)
+      nokogiri (~> 1)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.2.0)
@@ -360,6 +362,7 @@ DEPENDENCIES
   dotenv-rails
   faker
   font-awesome-sass (~> 6.1)
+  grover
   importmap-rails
   jbuilder
   pg (~> 1.1)

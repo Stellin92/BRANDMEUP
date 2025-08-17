@@ -21,22 +21,16 @@ class OutfitsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # vue show.html.erb existante
-      format.pdf do
-        render pdf: "outfit_#{@outfit.id}",
-               template: "outfits/pdf",     # vue dédiée au PDF (HTML)
-               layout: "pdf",               # layout pdf (voir plus bas)
-               formats: [:html],
-               encoding: "UTF-8",
-               page_size: "A4",
-               margin: { top: 12, bottom: 12, left: 12, right: 12 },
-               footer: {
-                 right: "Page [page] / [toPage]",
-                 spacing: 3
-               },
-               disable_smart_shrinking: true
-      end
+    format.html
+    format.pdf do
+      html = render_to_string(template: "outfits/pdf", layout: "pdf", formats: [:html])
+      pdf  = Grover.new(html, format: "A4", margin: { top: "12mm", right: "12mm", bottom: "12mm", left: "12mm" }).to_pdf
+      send_data pdf,
+        filename: "outfit_#{@outfit.id}.pdf",
+        type: "application/pdf",
+        disposition: "attachment"
     end
+  end
 
     skip_policy_scope
   end
