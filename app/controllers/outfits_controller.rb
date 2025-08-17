@@ -68,7 +68,7 @@ class OutfitsController < ApplicationController
 
     @outfit.user = current_user
     if @outfit.save
-      redirect_to outfit_path(@outfit), notice: "Outfit created successfully."
+      redirect_to user_path(@outfit.user), notice: "Outfit created successfully."
     else
       render :new, status: :unprocessable_entity
     end
