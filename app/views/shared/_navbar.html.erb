@@ -23,10 +23,16 @@
           </li>
           <li class="nav-item active" style="margin: auto 10px;">
             <%= link_to user_path(current_user) do %>
-              <% if current_user.photo.key %>
-                <%= image_tag current_user.photo.key, height: 75, width: 75, crop: :fill, gravity: :face, radius: :max, alt: "Avatar", class: "avatar" %>
+              <% if current_user.photo.attached? %>
+                <%= image_tag url_for(current_user.photo),
+                      alt: "Avatar",
+                      class: "avatar rounded-circle",
+                      size: "75x75" %>
               <% else %>
-                <%= image_tag("blank-profile-picture-973460_1280_q70y1j", height: 150, width: 150, crop: :face)%>
+                <%= image_tag "blank-profile-picture-973460_1280_q70y1j.png",
+                      alt: "Avatar",
+                      class: "avatar rounded-circle",
+                      size: "75x75" %>
               <% end %>
             <% end %>
           </li>
