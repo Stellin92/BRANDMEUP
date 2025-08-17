@@ -2,7 +2,7 @@
 <div class="feedback">
   <div class="feedback__avatar">
     <% if feedback.user.respond_to?(:photo) && feedback.user.photo&.attached? %>
-      <%= image_tag feedback.user.photo.key %>
+      <%= image_tag url(user.photo) %>
     <% else %>
       <%= image_tag "blank-profile-picture-973460_1280_q70y1j.png" %>
     <% end %>
