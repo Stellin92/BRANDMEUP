@@ -37,7 +37,7 @@
 
       <div class="outfit-modal__photo">
         <% if outfit.photo.present? %>
-          <%= cl_image_tag outfit.photo.key, alt: outfit.title %>
+          <%= image_tag url_for(outfit.photo), alt: outfit.title %>
         <% end %>
       </div>
     </div>

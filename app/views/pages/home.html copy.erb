@@ -1,0 +1,71 @@
+<% if user_signed_in? %>
+  <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dp4wqu1hq/image/upload/v1754722558/pexels-wesleydavi-3622614-scaled_vqifat.jpg);">
+    <div class="container">
+      <h1>Make a quick tour to our guide</h1>
+      <p>We guide you through our tools and every part that can help you reach your goals!</p>
+      <%= link_to "Guide. Me. UP!", "/guide", class: "btn btn-flat" %>
+    </div>
+  </div>
+  <div class="container">
+
+    <h2>Let your creativity shine with Discovery</h2>
+    <p>Look closely at what the other members have already created and inspire your own</p>
+    <%= link_to "I discover", "/outfits/new", class: "btn btn-flat" %>
+  </div>
+
+
+  <div class="banner-later" style="width: 100%;">
+    <div class="container">
+      <h2>Already seen enough and want to make your own outfit ?</h2>
+      <p>Create your outfit and save it for your next events!</p>
+      <%= link_to "Outfit Creator", "/", class: "btn btn-flat" %>
+    </div>
+  </div>
+
+<% else %>
+  <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dp4wqu1hq/image/upload/v1754722558/pexels-wesleydavi-3622614-scaled_vqifat.jpg);">
+    <div class="container">
+      <h1>Elevate your brand image with our online tool and community!</h1>
+      <p>Our outfit creator will enhance your brand consistency.</p>
+      <%= link_to "Brand. Me. UP!", "/users/sign_up", class: "btn btn-flat" %>
+    </div>
+  </div>
+
+    <div class="section">
+      <div class="container">
+        <h2 class="d-flex justify-content-center">Your time is priceless</h2>
+        <div class="value-proposition-card">
+          <img src="https://kafuzo.com/wp-content/uploads/2024/07/se7en92_mysterious_refined_divine_minimalist_black_and_white_fa_0061d33e-131c-450c-842a-fd291e750f6a-980x980.png" alt="Iconic woman">
+          <div class="value-proposition-info">
+            <p>Here is why Brand Me Up will spare you precious hours in your life.</p>
+            <p>Value proposition 1 to check</p>
+            <p>Outfit Creator : You build and save your outfits so you don't have to invent the wheel for those specific events</p>
+            <p>Community : You can get inspiration from other users' outfits or just exchange with them</p>
+            <p>Advices : If you need more guidance, we offer specific coach sessions and guidance for your personal branding</p>
+            <p>Conclusion to find too.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="section">
+    <div class="container">
+      <h2 class="d-flex justify-content-center">Who should use Brand Me Up ?</h2>
+      <p>Anyone with talent needs to be branded. We see you as a diamond and Brand Me Up taylor your personal branding to make you shine like you deserve.</p>
+      <div class="cards">
+        <div class="user-category-card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dp4wqu1hq/image/upload/v1754708426/development/vyg9b2vz6e4bvnfmu3oub1vlmsef.png)">Artists</div>
+        <div class="user-category-card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dp4wqu1hq/image/upload/v1754708371/development/e7oiuv33vpldgte10w4l8r1dqq27.png)">Athletes</div>
+        <div class="user-category-card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dp4wqu1hq/image/upload/v1754708356/development/ixh9e6bjdzpfbvfgkqk3xnzvgxvh.png)">Experts</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="banner"
+      style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dp4wqu1hq/image/upload/v1754708245/development/59n545u33lq3bb1szk5acladx8g5.png);">
+    <div class="container">
+      <h1>Sign up and change your life for good</h1>
+      <p>You are a gem ready to shine. Brand your self up and let your light shine brighter</p>
+      <%= link_to "I. Brand. Me. UP!", "/users/sign_up", class: "btn btn-flat" %>
+    </div>
+  </div>
+<% end %>

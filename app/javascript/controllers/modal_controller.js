@@ -1,43 +1,24 @@
 import { Controller } from "@hotwired/stimulus"
-
-// Gère l'ouverture/fermeture du modal avec un turbo-frame
 export default class extends Controller {
-  static targets = ["overlay", "frame"]
-
-  connect() {
-    this._onFrameLoad = (e) => {
-      const frame = e.target
-      if (frame.id === "outfit_modal") {
-        // s'il y a du contenu, on ouvre
-        if (frame.innerHTML.trim() !== "") this.open()
-      }
+  static targets = ["overlay","frame"]
+  connect(){
+    this._onFrameLoad = (e)=>{
+      if(e.target.id==="outfit_modal" && e.target.innerHTML.trim()!==""){ this.open() }
     }
     document.addEventListener("turbo:frame-load", this._onFrameLoad)
-
-    // fermer avec "Escape"
-    this._onKey = (e) => { if (e.key === "Escape") this.close() }
+    this._onKey = (e)=>{ if(e.key==="Escape") this.close() }
     document.addEventListener("keydown", this._onKey)
+    this._observer = new MutationObserver(()=> {
+      if(this.frameTarget && this.frameTarget.innerHTML.trim()===""){ this.close() }
+    })
+    this._observer.observe(this.frameTarget, { childList:true, subtree:true })
   }
-
-  disconnect() {
+  disconnect(){
     document.removeEventListener("turbo:frame-load", this._onFrameLoad)
     document.removeEventListener("keydown", this._onKey)
+    this._observer?.disconnect()
   }
-
-  open() {
-    this.overlayTarget.hidden = false
-    document.body.style.overflow = "hidden"
-  }
-
-  close() {
-    // vide le frame pour le cacher
-    this.frameTarget.innerHTML = ""
-    this.overlayTarget.hidden = true
-    document.body.style.overflow = ""
-  }
-
-  backdrop(e) {
-    // ferme si on clique en dehors du panel
-    if (e.target === this.overlayTarget) this.close()
-  }
+  open(){ this.overlayTarget.hidden=false; document.body.style.overflow="hidden" }
+  close(){ this.frameTarget.innerHTML=""; this.overlayTarget.hidden=true; document.body.style.overflow="" }
+  backdrop(e){ if(e.target===this.overlayTarget) this.close() }
 }

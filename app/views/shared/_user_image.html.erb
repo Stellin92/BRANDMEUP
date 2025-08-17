@@ -1,5 +1,5 @@
-<% if @user.photo.key %>
-  <%= cl_image_tag @user.photo.key, height: 300, width: 400, crop: :fill %>
+<% if url_for(@user.photo) %>
+  <%= image_tag url_for(@user.photo), height: 300, width: 400, crop: :fill %>
 <% else %>
-  <%= cl_image_tag("0k3y4rlo4x8yuo8xz8u98fpot0b1", height: 300, width: 400, crop: :fill)%>
+  <%= image_tag("0k3y4rlo4x8yuo8xz8u98fpot0b1", height: 300, width: 400, crop: :fill)%>
 <% end %>

@@ -6,7 +6,7 @@ import "bootstrap"
 
 import { Application } from "@hotwired/stimulus"
 
-const application = Application.start()
+export const application = Application.start()
 
 import PreviewController from "./controllers/preview_controller"
 application.register("preview", PreviewController)

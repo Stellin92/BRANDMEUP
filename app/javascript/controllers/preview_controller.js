@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
+  static targets = ["output","input"]
   update(event) {
     const input = event.target
     const preview = document.getElementById("photo-preview")
