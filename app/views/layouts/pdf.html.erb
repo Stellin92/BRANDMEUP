@@ -3,16 +3,21 @@
 <head>
   <meta charset="utf-8">
   <title><%= content_for?(:title) ? yield(:title) : "Outfit" %></title>
-  <!-- Google Fonts toléré ; si ça ne charge pas, ça ne casse pas la mise en page -->
+
+  <!-- Polices (optionnel) -->
   <link href="https://fonts.googleapis.com/css2?family=Belleza&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <%# 1) chemin “normal” : embarque le CSS dans un <style> via WickedPDF %>
-  <%= wicked_pdf_stylesheet_link_tag "pdf" %>
-
-  <%# 2) Fallback absolu si jamais l’asset pipeline rate (dev/prod) %>
-  <% unless defined?(WickedPdfAssets) && WickedPdfAssets.respond_to?(:read_asset) %>
-    <style><%= raw(File.read(Rails.root.join("app","assets","stylesheets","pdf.css"))) rescue "" %></style>
-  <% end %>
+  <%# Charge la CSS par 3 voies possibles (prod -> dev -> fichier brut) %>
+  <% css_text =
+      if defined?(WickedPdfAssets) && WickedPdfAssets.respond_to?(:read_asset)
+        WickedPdfAssets.read_asset('pdf.css') # manifeste / pipeline (prod Heroku)
+      elsif Rails.application.respond_to?(:assets) && Rails.application.assets
+        (Rails.application.assets['pdf.css']&.source || Rails.application.assets['pdf.css']&.to_s)
+      else
+        File.read(Rails.root.join('app','assets','stylesheets','pdf.css')) rescue ''
+      end
+  %>
+  <style><%= raw css_text %></style>
 </head>
 <body class="pdf">
   <%= yield %>
