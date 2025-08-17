@@ -51,16 +51,26 @@
     </div>
   </div>
   <!-- Outfits -->
-  <div class="container">
-    <div class="user-outfits">
-      <h2>Outfits</h2>
-      <div class="outfit-grid">
-        <% @user.outfits.each do |outfit| %>
-          <%= render partial: "outfits/card", locals: { outfit: outfit } %>
-        <% end %>
+  <% if @user.outfits.present? %>
+    <div class="container">
+      <div class="user-outfits">
+        <h2>Outfits</h2>
+        <div class="outfit-grid">
+          <% @user.outfits.each do |outfit| %>
+            <%= render partial: "outfits/card", locals: { outfit: outfit } %>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
+    <% else %>
+    <div class="banner banner-user d-flex align-items-center">
+      <div class="container" style="max-width: 50%;">
+          <h2>Your inner identity awaits its first outfit</h2>
+          <p>This is where you can express yourself and plan specific outfits all kind of events!</p>
+          <%= link_to "I create", "/outfits/new", class: "btn btn-flat" %>
+      </div>
+    </div>
+    <% end %>
   <div class="modal-overlay"
        data-controller="modal"
        data-modal-target="overlay"
