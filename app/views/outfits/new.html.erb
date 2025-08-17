@@ -1,5 +1,6 @@
-<h1>Outfit Crafter</h1>
+<h1 class="d-flex justify-content-center">Outfit Crafter</h1>
 <div class="fancy-form">
+  <p class="d-flex justify-content-center">Craft your outfit kit and ease your next styling preparations!</p>
   <%= simple_form_for(@outfit) do |f| %>
     <div class="photo-upload" data-controller="preview">
       <label for="outfit_photo_input">
@@ -33,6 +34,17 @@
     </div>
     <%= f.input :style %>
     <%= f.input :goal %>
+    <div class="items-list-wrapper">
+      <% 3.times do |i| %>
+        <%= f.input :items_list,
+          label: "Item #{i+1}",
+          input_html: {
+            name: "outfit[items_list][]",
+            value: @outfit.items_list[i] || "",
+            placeholder: "Enter a remarkable accessory item #{i+1}"
+          } %>
+      <% end %>
+    </div>
     <%= f.button :submit, "Create Outfit", class: "btn btn-flat" %>
   <% end %>
 </div>

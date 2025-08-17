@@ -1,7 +1,7 @@
 .btn.btn-flat {
   color: white;
   padding: 8px 24px;
-  // border: 2px solid $charcoal;
+  // border: 2px solid #1E1E1E;
   border-radius: 4px;
   background: #8572FF;
   // transition: background 0.3s ease;
@@ -10,14 +10,20 @@
 .btn.btn-flat:hover {
   background: #7BAEDC;
   color: white;
+  font-weight: bold;
 }
 
-.btn-second {
-  background: $indigo;
-  color: $charcoal;
+.btn.btn-beta {
+  background: #FDFBF8;
+  color: #1E1E1E;
 }
 
+.btn.btn-beta:hover {
+  background: #FDFBF8;
+  font-weight: bold;
+
+}
 // .btn-light {
-//   background: $broken-white;
-//   color: $charcoal;
+//   background: $#FDFBF8;
+//   color: #1E1E1E;
 // }

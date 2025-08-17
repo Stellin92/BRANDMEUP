@@ -107,6 +107,6 @@
 }
 .btn-primary {
   background: var(--primary-600, #7C3AED);
-  color: #fff;
+  color: $charcoal;
 }
 .btn-primary:hover { background: var(--primary-700, #6D28D9); }
