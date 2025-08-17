@@ -23,8 +23,31 @@ class OutfitsController < ApplicationController
     respond_to do |format|
     format.html
     format.pdf do
-      html = render_to_string(template: "outfits/pdf", layout: "pdf", formats: [:html])
-      pdf  = Grover.new(html, format: "A4", margin: { top: "12mm", right: "12mm", bottom: "12mm", left: "12mm" }).to_pdf
+      html = render_to_string(
+        template: "outfits/pdf",
+        layout:   "pdf",
+        formats:  [:html]
+      )
+
+      options = {
+        format: "A4",
+        preferCSSPageSize: true,
+        print_background: true,
+        margin: { top: "12mm", right: "12mm", bottom: "12mm", left: "12mm" },
+        display_header_footer: true,
+        footer_template: <<~HTML
+          <div style="font-size:10px;width:100%;text-align:right;padding-right:12mm;">
+            Page <span class="pageNumber"></span> / <span class="totalPages"></span>
+          </div>
+        HTML
+        ,
+        # Ces flags sont importants sur Heroku
+        launch_args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"],
+        wait_until: "networkidle0" # attend que les images/feuilles soient chargées
+      }
+
+      pdf = Grover.new(html, options).to_pdf
+
       send_data pdf,
         filename: "outfit_#{@outfit.id}.pdf",
         type: "application/pdf",
