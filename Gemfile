@@ -86,6 +86,11 @@ gem "faker"
 
 # PDF Maker Wicked PDF
 
-# gem "wicked_pdf", "~> 2.8"
-# gem "wkhtmltopdf-binary", "~> 0.12.6.6"
-gem "grover"
+gem "wicked_pdf", "~> 2.8"
+group :development, :test do
+  gem "wkhtmltopdf-binary", "~> 0.12.6.6"
+end
+group :production do
+  gem "wkhtmltopdf-heroku", ">= 3.0.0"
+end
+# gem "grover"

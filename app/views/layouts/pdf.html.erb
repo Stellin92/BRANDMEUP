@@ -1,16 +1,18 @@
-<!-- app/views/layouts/pdf.html.erb -->
 <!doctype html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8">
   <title><%= content_for?(:title) ? yield(:title) : "Outfit" %></title>
-
-  <!-- Polices : Poppins / Belleza (webfonts). wkhtmltopdf charge généralement les CSS externes. -->
+  <!-- Google Fonts toléré ; si ça ne charge pas, ça ne casse pas la mise en page -->
   <link href="https://fonts.googleapis.com/css2?family=Belleza&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
+  <%# 1) chemin “normal” : embarque le CSS dans un <style> via WickedPDF %>
   <%= wicked_pdf_stylesheet_link_tag "pdf" %>
-  <!-- Si tu veux réutiliser quelques classes utilitaires de ton app:
-  <%= wicked_pdf_stylesheet_link_tag "application" %> -->
+
+  <%# 2) Fallback absolu si jamais l’asset pipeline rate (dev/prod) %>
+  <% unless defined?(WickedPdfAssets) && WickedPdfAssets.respond_to?(:read_asset) %>
+    <style><%= raw(File.read(Rails.root.join("app","assets","stylesheets","pdf.css"))) rescue "" %></style>
+  <% end %>
 </head>
 <body class="pdf">
   <%= yield %>

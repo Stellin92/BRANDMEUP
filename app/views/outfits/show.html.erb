@@ -1,5 +1,5 @@
 <div class="main-image d-flex justify-content-center">
-  <%= image_tag @url_for(outfit.photo), height: 300, class: "rounded", crop: :fill %>
+  <%= image_tag url_for(@outfit.photo), height: 300, class: "rounded", crop: :fill %>
 </div>
 <div class="row">
   <div class="d-flex flex-row justify-content-center"><h1><%= @outfit.title %></h1></div>

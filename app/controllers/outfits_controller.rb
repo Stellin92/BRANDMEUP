@@ -16,44 +16,23 @@ class OutfitsController < ApplicationController
     authorize @outfit
     if params[:modal].present?
       render partial: "outfits/modal", locals: { outfit: @outfit }
-    else
-      render :show
+      return
     end
 
     respond_to do |format|
-    format.html
-    format.pdf do
-      html = render_to_string(
-        template: "outfits/pdf",
-        layout:   "pdf",
-        formats:  [:html]
-      )
+      format.html { render :show }
 
-      options = {
-        format: "A4",
-        preferCSSPageSize: true,
-        print_background: true,
-        margin: { top: "12mm", right: "12mm", bottom: "12mm", left: "12mm" },
-        display_header_footer: true,
-        footer_template: <<~HTML
-          <div style="font-size:10px;width:100%;text-align:right;padding-right:12mm;">
-            Page <span class="pageNumber"></span> / <span class="totalPages"></span>
-          </div>
-        HTML
-        ,
-        # Ces flags sont importants sur Heroku
-        launch_args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"],
-        wait_until: "networkidle0" # attend que les images/feuilles soient chargées
-      }
-
-      pdf = Grover.new(html, options).to_pdf
-
-      send_data pdf,
-        filename: "outfit_#{@outfit.id}.pdf",
-        type: "application/pdf",
-        disposition: "attachment"
+      format.pdf do
+        render pdf: "outfit_#{@outfit.id}",
+               template: "outfits/pdf",   # vue dédiée PDF
+               layout: "pdf",             # layout PDF
+               encoding: "UTF-8",
+               page_size: "A4",
+               margin: { top: 12, bottom: 12, left: 12, right: 12 },
+               footer: { right: "Page [page] / [toPage]" },
+               disable_smart_shrinking: true
+      end
     end
-  end
 
     skip_policy_scope
   end

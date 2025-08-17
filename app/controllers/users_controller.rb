@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
   def show
     authorize @user
-    @chat = Chat.new
+    # @chat = Chat.new
     skip_policy_scope
   end
 
