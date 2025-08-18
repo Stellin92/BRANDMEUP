@@ -4,7 +4,6 @@
 }
 
 .guide-block {
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,6 +81,7 @@
 }
 
 .block-1 {
+  min-height: 100vh;
   background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("https://res.cloudinary.com/dp4wqu1hq/image/upload/v1755300904/se7en92_A_dramatic_abstract_scene_with_a_silhouette_walking_t_cd818bbd-ca8d-4a56-ae48-4ccbf54ed767_0_idjucu.png");
   background-repeat: no-repeat;
   background-size: cover;
@@ -93,4 +93,8 @@
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
+}
+
+.block-2, .block-3, .block-4 {
+  min-height: 80vh;
 }
