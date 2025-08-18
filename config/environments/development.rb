@@ -14,6 +14,9 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
+  # PDF creator
+  config.action_controller.asset_host = "http://localhost:3000"
+
   # Enable server timing
   config.server_timing = true
 
