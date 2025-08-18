@@ -2,26 +2,40 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["drawer", "overlay"]
+  static targets = ["drawer", "overlay", "frame"]
 
-  connect() {
-    this._openListener = () => this.open()
-    window.addEventListener("inbox:open", this._openListener)
-    this._onKeyDown = (e) => { if (e.key === "Escape") this.close() }
-    document.addEventListener("keydown", this._onKeyDown)
+  connect() { this.loaded = false }
 
-    // Opens as soon as the turbo-frame is loaded and it's #inbox
-    this._onFrameLoad = (e) => { if (e.target?.id === "inbox") this.open() }
-    document.addEventListener("turbo:frame-load", this._onFrameLoad)
-  }
-  disconnect() {
-    window.removeEventListener("inbox:open", this._openListener)
-    document.removeEventListener("keydown", this._onKeyDown)
-    document.removeEventListener("turbo:frame-load", this._onFrameLoad)
+  toggle(e) {
+    e?.preventDefault()
+    if (!this.loaded) this.load()
+    this.drawerTarget.classList.toggle("is-open")
+    this._sync()
   }
 
-  toggle(e) { e?.preventDefault(); this.drawerTarget.classList.toggle("is-open"); this._sync() }
-  open()    { this.drawerTarget.classList.add("is-open");  this.overlayTarget.classList.add("is-visible") }
-  close()   { this.drawerTarget.classList.remove("is-open"); this.overlayTarget.classList.remove("is-visible") }
-  _sync()   { this.overlayTarget.classList.toggle("is-visible", this.drawerTarget.classList.contains("is-open")) }
+  open() {
+    if (!this.loaded) this.load()
+    this.drawerTarget.classList.add("is-open")
+    this.overlayTarget.classList.add("is-visible")
+  }
+
+  close() {
+    this.drawerTarget.classList.remove("is-open")
+    this.overlayTarget.classList.remove("is-visible")
+  }
+
+  load() {
+    if (!this.hasFrameTarget) return
+    const url = this.frameTarget.getAttribute("data-src")
+    const hasSrc = this.frameTarget.getAttribute("src")
+    if (url && !hasSrc) this.frameTarget.setAttribute("src", url) // charge 1 seule fois
+    this.loaded = true
+  }
+
+  _sync() {
+    this.overlayTarget.classList.toggle(
+      "is-visible",
+      this.drawerTarget.classList.contains("is-open")
+    )
+  }
 }

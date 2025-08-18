@@ -11,9 +11,8 @@
   transition: transform .28s ease-in-out;
   z-index: 1050;              // au-dessus de la page
   display: flex; flex-direction: column;
+  &.is-open { transform: translateX(0); opacity: 1; pointer-events: auto; }
 }
-
-.inbox-drawer.is-open { transform: translateX(0); }
 
 /* Overlay pour fermer au clic */
 .inbox-overlay {
@@ -22,9 +21,7 @@
   z-index: 1040;
   opacity: 0; pointer-events: none;
   transition: opacity .2s ease;
-}
-.inbox-overlay.is-visible {
-  opacity: 1; pointer-events: auto;
+  &.is-visible { opacity: 1; pointer-events: auto; }
 }
 
 /* Panel interne */

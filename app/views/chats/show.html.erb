@@ -1,5 +1,4 @@
 <%= turbo_frame_tag "inbox" do %>
-  <div data-controller="inbox-opener"></div>
   <%= turbo_stream_from @chat %>
 
   <div class="inbox-panel">
