@@ -1,17 +1,19 @@
-<div class="discovery-hero">
+<div class="discovery-hero discovery-hero--soft">
   <div class="container">
     <h1>Discover what the other users have created and connect with them</h1>
-    <p class="lead">Inspire each other, connect, exchange, grow together.</p>
+    <p class="lead">Get inspired, connect, exchange and grow together.</p>
   </div>
 </div>
 
 <div class="discovery-grid-section">
   <div class="container">
-    <div class="users-grid">
-      <% User.all.each do |user| %>
+    <div class="users-grid users-grid--4">
+      <% (@users || User.all).each do |user| %>
         <%= render partial: "user_card", locals: { user: user } %>
       <% end %>
     </div>
+    </div>
+  </div>
 </div>
 
 
