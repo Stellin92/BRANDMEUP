@@ -1,0 +1,69 @@
+.triptych { padding: 48px 0; }
+.triptych-sub { color: #888; margin-bottom: 24px; }
+
+.triptych-grid {
+  display: grid; gap: 20px;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+}
+@media (max-width: 992px) { .triptych-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 640px) { .triptych-grid { grid-template-columns: 1fr; } }
+
+.triptych-card { position: relative; }
+.flip-toggle { position: absolute; opacity: 0; pointer-events: none; }
+
+.flip-card { display: block; perspective: 1200px; cursor: pointer; }
+.flip-inner {
+  position: relative; width: 100%; aspect-ratio: 4/5;
+  transform-style: preserve-3d; transition: transform .7s cubic-bezier(.2,.7,.2,1);
+  border-radius: 20px; overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+.flip-face {
+  position: absolute; inset: 0; backface-visibility: hidden;
+  display: grid; place-items: end; padding: 16px;
+}
+
+/* PLUS COLORÉ & NEUTRE — on ajoute deux overlays colorés par carte */
+.flip-front {
+  background:
+    linear-gradient(120deg, var(--overlay1, rgba(0,0,0,.0)), transparent 45%),
+    linear-gradient(300deg, var(--overlay2, rgba(0,0,0,.0)), transparent 55%),
+    linear-gradient(to top, rgba(0,0,0,.45), rgba(0,0,0,.05)),
+    var(--img) center/cover no-repeat;
+  animation: floatTint 9s ease-in-out infinite alternate;
+}
+@keyframes floatTint {
+  from { background-position: 0% 0%, 100% 100%, 0% 0%, center; }
+  to   { background-position: 20% 10%, 80% 90%, 0% 0%, center; }
+}
+
+/* chip neutre (gender-inclusive) */
+.flip-front .chip {
+  align-self: end; color: #111; font-weight: 600; letter-spacing: .5px;
+  background: #fff; border: 1px solid rgba(0,0,0,.08);
+  padding: 8px 12px; border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.15), inset 0 0 0 2px var(--chip, #e5e7eb);
+}
+
+/* back */
+.flip-back {
+  background: #0f0f11; color: #e8e8ea;
+  transform: rotateY(180deg);
+  align-content: center; padding: 28px; text-align: left;
+}
+.flip-back h3 { margin: 0 0 8px; font-weight: 700; }
+.flip-back .promise { margin: 0 0 12px; color: #bfbfc5; }
+.flip-back ul { margin: 0 0 12px 18px; }
+.flip-back li { margin: 4px 0; }
+.flip-back .hint { font-size: .85rem; color: #8e8e94; }
+
+.flip-card:hover .flip-inner,
+.flip-card:focus-within .flip-inner,
+.flip-toggle:checked + .flip-card .flip-inner { transform: rotateY(180deg); }
+
+/* Accessibilité motion */
+@media (prefers-reduced-motion: reduce) {
+  .flip-inner { transition: none; }
+  .flip-front { animation: none; }
+}
