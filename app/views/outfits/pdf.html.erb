@@ -14,7 +14,6 @@
   <!-- Header -->
   <header class="bm-header">
     <div class="bm-header__logo">
-      <%# ⚠️ place un PNG dans app/assets/images/diamond_logo.png %>
       <%= image_tag wicked_pdf_asset_base64("logo_diamond.png"), alt: "Brand Me Up", class: "logo" rescue image_tag("logo.png", class: "logo", alt: "Brand Me Up") %>
     </div>
 
@@ -30,9 +29,9 @@
     <!-- Colonne gauche : grande image -->
     <div class="bm-main-photo">
       <% if @outfit.photo&.attached? %>
-        <%= image_tag url_for(@outfit.photo), alt: (@outfit.title.presence || "Outfit photo") %>
+        <%= wicked_pdf_image_tag url_for(@outfit.photo), alt: (@outfit.title.presence || "Outfit photo") %>
       <% elsif @outfit.respond_to?(:photo_url) && @outfit.photo_url.present? %>
-        <%= image_tag @outfit.photo_url, alt: (@outfit.title.presence || "Outfit photo") %>
+        <%= wicked_pdf_image_tag @outfit.photo_url, alt: (@outfit.title.presence || "Outfit photo") %>
       <% else %>
         <div class="bm-photo--placeholder">No photo</div>
       <% end %>
@@ -100,3 +99,4 @@
 
   <!-- Accroche finale -->
   <footer class="tagline">This PDF spares your time to shine. So smile and enlight the others.</footer>
+</section>

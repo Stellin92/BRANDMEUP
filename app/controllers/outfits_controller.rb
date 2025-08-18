@@ -13,29 +13,38 @@ class OutfitsController < ApplicationController
   end
 
     def show
-    authorize @outfit
-    if params[:modal].present?
-      render partial: "outfits/modal", locals: { outfit: @outfit }
-      return
-    end
-
-    respond_to do |format|
-      format.html { render :show }
-
-      format.pdf do
-        render pdf: "outfit_#{@outfit.id}",
-               template: "outfits/pdf",   # vue dédiée PDF
-               layout: "pdf",             # layout PDF
-               encoding: "UTF-8",
-               page_size: "A4",
-               margin: { top: 12, bottom: 12, left: 12, right: 12 },
-               footer: { right: "Page [page] / [toPage]" },
-               disable_smart_shrinking: true
+      authorize @outfit
+      if params[:modal].present?
+        render partial: "outfits/modal", locals: { outfit: @outfit }
+        return
       end
-    end
 
-    skip_policy_scope
-  end
+      respond_to do |format|
+        format.html { render :show }
+
+        format.pdf do
+          render pdf: "outfit_#{@outfit.id}",
+                template: "outfits/pdf",   # => app/views/outfits/pdf.html.erb
+                formats:  [:html],          # <= clé : on force Rails à prendre la vue HTML
+                handlers: [:erb],           # <= (optionnel) précise le moteur si besoin
+                layout:   "pdf",            # => app/views/layouts/pdf.html.erb
+                encoding: "UTF-8",
+
+                # options wkhtmltopdf ok
+                disable_smart_shrinking: false,
+                zoom: 1.0,
+                viewport_size: "1280x1024",
+                print_media_type: true,
+                background: true,
+
+                page_size: "A4",
+                margin: { top: 12, bottom: 12, left: 12, right: 12 },
+                footer: { right: "Page [page] / [toPage]" }
+        end
+      end
+
+      skip_policy_scope
+    end
 
   def edit
     authorize @outfit
