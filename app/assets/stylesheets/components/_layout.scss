@@ -1,0 +1,14 @@
+:root {
+  --footer-h: 72px; // adapte à la hauteur réelle de ton footer
+}
+
+.site-footer {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: var(--footer-h);
+  z-index: 1000;
+}
+
+.page-content {
+  padding-bottom: var(--footer-h); // évite que le contenu soit caché derrière le footer
+}

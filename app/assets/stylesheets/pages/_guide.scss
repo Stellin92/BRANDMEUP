@@ -98,3 +98,19 @@
 .block-2, .block-3, .block-4 {
   min-height: 80vh;
 }
+
+.block-one-logged {
+  min-height: 100vh;
+  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("https://res.cloudinary.com/dp4wqu1hq/image/upload/v1755498367/se7en92_A_group_of_diverse_people_walking_with_confidence_eac_7ea1a4fe-69b6-482b-b95a-f63bc9c95d39_0_nixpgt.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
+
+.block-one-off {
+  min-height: 100vh;
+  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("https://res.cloudinary.com/dp4wqu1hq/image/upload/v1755498749/se7en92_A_group_of_diverse_people_walking_with_confidence_eac_7ea1a4fe-69b6-482b-b95a-f63bc9c95d39_3_dddsid.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}

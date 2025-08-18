@@ -8,36 +8,58 @@
      else
        []
      end %>
-
 <section class="sheet">
-
   <!-- Header -->
   <header class="bm-header">
     <div class="bm-header__logo">
-      <%# ⚠️ place un PNG dans app/assets/images/diamond_logo.png %>
       <%= image_tag wicked_pdf_asset_base64("logo_diamond.png"), alt: "Brand Me Up", class: "logo" rescue image_tag("logo.png", class: "logo", alt: "Brand Me Up") %>
     </div>
 
-    <h1 class="bm-header__title">Brand Me Up</h1>
 
+
+
+
+
+
+
+        Expand All
+
+    @@ -30,9 +29,9 @@
+
+    <h1 class="bm-header__title">Brand Me Up</h1>
     <div class="bm-header__logo">
       <%= image_tag wicked_pdf_asset_base64("logo_diamond.png"), alt: "Brand Me Up", class: "logo" rescue image_tag("logo.png", class: "logo", alt: "Brand Me Up") %>
     </div>
   </header>
-
   <!-- Grille principale -->
   <div class="bm-grid">
     <!-- Colonne gauche : grande image -->
     <div class="bm-main-photo">
       <% if @outfit.photo&.attached? %>
-        <%= image_tag url_for(@outfit.photo), alt: (@outfit.title.presence || "Outfit photo") %>
+        <%= wicked_pdf_image_tag url_for(@outfit.photo), alt: (@outfit.title.presence || "Outfit photo") %>
       <% elsif @outfit.respond_to?(:photo_url) && @outfit.photo_url.present? %>
-        <%= image_tag @outfit.photo_url, alt: (@outfit.title.presence || "Outfit photo") %>
+        <%= wicked_pdf_image_tag @outfit.photo_url, alt: (@outfit.title.presence || "Outfit photo") %>
       <% else %>
         <div class="bm-photo--placeholder">No photo</div>
       <% end %>
-    </div>
 
+
+
+
+
+
+
+          Expand Down
+
+
+
+
+
+          Expand Up
+
+    @@ -100,3 +99,4 @@
+
+    </div>
     <!-- Colonne droite : cartes d’info -->
     <aside class="bm-side">
       <% if @outfit.title.present? %>
@@ -46,21 +68,18 @@
           <div class="card__value"><%= @outfit.title %></div>
         </div>
       <% end %>
-
       <% if @outfit.description.present? %>
         <div class="card">
           <div class="card__label">Description</div>
           <div class="card__value"><%= @outfit.description %></div>
         </div>
       <% end %>
-
       <% if @outfit.respond_to?(:goal) && @outfit.goal.present? %>
         <div class="card card--tight">
           <div class="card__label">Goal</div>
           <div class="card__value"><%= @outfit.goal %></div>
         </div>
       <% end %>
-
       <% if palette.any? %>
         <div class="card">
           <div class="card__label">Color set</div>
@@ -77,7 +96,6 @@
       <% end %>
     </aside>
   </div>
-
   <!-- Liste des pièces -->
   <% if items.any? %>
     <section class="card card--full">
@@ -89,7 +107,6 @@
       </ul>
     </section>
   <% end %>
-
   <!-- Note/conseil -->
   <section class="note">
     <p>
@@ -100,3 +117,4 @@
 
   <!-- Accroche finale -->
   <footer class="tagline">This PDF spares your time to shine. So smile and enlight the others.</footer>
+</section>

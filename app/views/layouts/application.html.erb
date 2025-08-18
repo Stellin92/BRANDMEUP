@@ -17,8 +17,9 @@
   <body data-controller="inbox">
     <%= render "shared/navbar" %>
     <%= render "shared/flashes" %>
-    <%= yield %>
-
+    <main class="page-content">
+        <%= yield %>
+    </main>
     <%= render "shared/footer" %>
     <div class="inbox-overlay"
         data-inbox-target="overlay"

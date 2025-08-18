@@ -1,71 +1,86 @@
 <% if user_signed_in? %>
-  <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dp4wqu1hq/image/upload/v1754722558/pexels-wesleydavi-3622614-scaled_vqifat.jpg);">
-    <div class="container">
-      <h1>Make a quick tour to our guide</h1>
-      <p>We guide you through our tools and every part that can help you reach your goals!</p>
-      <%= link_to "Guide. Me. UP!", "/guide", class: "btn btn-flat" %>
-    </div>
-  </div>
-  <div class="container">
+  <div class="guide-page" data-controller="reveal">
+    <!-- Block 1 -->
+    <section class="guide-block block-one-logged" data-reveal-target="section">
+      <div class="guide-content center">
+        <h1>Make a quick tour to our guide</h1>
+        <p>Discover how Brand Me Up will enhance your personal branding</p>
+        <%= link_to "Guide. Me. UP!", "/guide", class: "btn btn-flat" %>
+      </div>
+    </section>
 
-    <h2>Let your creativity shine with Discovery</h2>
-    <p>Look closely at what the other members have already created and inspire your own</p>
-    <%= link_to "I discover", "/outfits/new", class: "btn btn-flat" %>
-  </div>
-
-
-  <div class="banner-later" style="width: 100%;">
-    <div class="container">
-      <h2>Already seen enough and want to make your own outfit ?</h2>
-      <p>Create your outfit and save it for your next events!</p>
-      <%= link_to "Outfit Creator", "/", class: "btn btn-flat" %>
-    </div>
-  </div>
-
-<% else %>
-  <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dp4wqu1hq/image/upload/v1754722558/pexels-wesleydavi-3622614-scaled_vqifat.jpg);">
-    <div class="container">
-      <h1>Elevate your brand image with our online tool and community!</h1>
-      <p>Our outfit creator will enhance your brand consistency.</p>
-      <%= link_to "Brand. Me. UP!", "/users/sign_up", class: "btn btn-flat" %>
-    </div>
-  </div>
-
-    <div class="section">
-      <div class="container">
-        <h2 class="d-flex justify-content-center">Your time is priceless</h2>
-        <div class="value-proposition-card">
-          <img src="https://kafuzo.com/wp-content/uploads/2024/07/se7en92_mysterious_refined_divine_minimalist_black_and_white_fa_0061d33e-131c-450c-842a-fd291e750f6a-980x980.png" alt="Iconic woman">
-          <div class="value-proposition-info">
-            <p>Here is why Brand Me Up will spare you precious hours in your life.</p>
-            <p>Value proposition 1 to check</p>
-            <p>Outfit Creator : You build and save your outfits so you don't have to invent the wheel for those specific events</p>
-            <p>Community : You can get inspiration from other users' outfits or just exchange with them</p>
-            <p>Advices : If you need more guidance, we offer specific coach sessions and guidance for your personal branding</p>
-            <p>Conclusion to find too.</p>
-          </div>
+    <!-- Block 2 -->
+    <section class="guide-block block-2" data-reveal-target="section">
+      <div class="guide-split">
+        <div class="guide-image" data-reveal-target="image">
+          <img src="https://res.cloudinary.com/dp4wqu1hq/image/upload/v1755497577/se7en92_A_sleek_luxurious_flat_lay_digital_illustration_of_st_a57ce373-e50c-44ff-a069-ef9038465e4a_2_fbfaqk.png">
+        </div>
+        <div class="guide-text">
+          <h2>Already seen enough and want to make your own outfit ?</h2>
+          <p>Create your outfit and save it for your next events!</p>
+          <%= link_to "Outfit Creator", "/outfits/new", class: "btn btn-flat" %>
         </div>
       </div>
-    </div>
-
-  <div class="section">
-    <div class="container">
-      <h2 class="d-flex justify-content-center">Who should use Brand Me Up ?</h2>
-      <p>Anyone with talent needs to be branded. We see you as a diamond and Brand Me Up taylor your personal branding to make you shine like you deserve.</p>
-      <div class="cards">
-        <div class="user-category-card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dp4wqu1hq/image/upload/v1754708426/development/vyg9b2vz6e4bvnfmu3oub1vlmsef.png)">Artists</div>
-        <div class="user-category-card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dp4wqu1hq/image/upload/v1754708371/development/e7oiuv33vpldgte10w4l8r1dqq27.png)">Athletes</div>
-        <div class="user-category-card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dp4wqu1hq/image/upload/v1754708356/development/ixh9e6bjdzpfbvfgkqk3xnzvgxvh.png)">Experts</div>
+    </section>
+<% else %>
+  <div class="guide-page" data-controller="reveal">
+    <!-- Block 1 -->
+    <section class="guide-block block-one-off" data-reveal-target="section">
+      <div class="guide-content center">
+        <h1>Make a quick tour to our guide<span class="brand">Brand Me Up</span></h1>
+        <p>You have already taken a huge step forward in your personal evolution — congratulations!</p>
+        <p>This quick guide will walk you through the tools available to help you boost your chances of achieving your goals with us.</p>
+        <p>Let’s dive in 🚀</p>
+        <div class="scroll-indicator">↓ Scroll down</div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <div class="banner"
-      style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dp4wqu1hq/image/upload/v1754708245/development/59n545u33lq3bb1szk5acladx8g5.png);">
-    <div class="container">
-      <h1>Sign up and change your life for good</h1>
-      <p>You are a gem ready to shine. Brand your self up and let your light shine brighter</p>
-      <%= link_to "I. Brand. Me. UP!", "/users/sign_up", class: "btn btn-flat" %>
-    </div>
+    <!-- Block 2 -->
+    <section class="guide-block block-2" data-reveal-target="section">
+      <div class="guide-split">
+        <div class="guide-image" data-reveal-target="image">
+          <img src="https://res.cloudinary.com/dp4wqu1hq/image/upload/v1755301110/se7en92_A_stylish_portrait_of_a_confident_young_professional__bde038a3-4481-4506-85be-a1387942030a_3_kwex8y.png">
+        </div>
+        <div class="guide-text">
+          <h2>Your image speaks before you do</h2>
+          <p>First impressions matter — in personal life, professional life, and especially when you’re in the spotlight.</p>
+          <p>Every interaction could be an opportunity, so let’s not waste it.</p>
+          <p>Your personal style and your branding are here to make daily life easier and open doors.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Block 3 -->
+    <section class="guide-block block-3" data-reveal-target="section">
+      <div class="guide-split reverse">
+        <div class="guide-image" data-reveal-target="image">
+          <img src="https://res.cloudinary.com/dp4wqu1hq/image/upload/v1755300904/se7en92_A_flat_lay_composition_of_elegant_fashion_items_suit__e920c8ce-b94c-479a-ae36-df0552d4ac02_2_ftnyz6.png" alt="Women">
+        </div>
+        <div class="guide-text">
+          <h2>Outfit Creator<br><span>Consistency is power.</span></h2>
+          <ol>
+            <li>First of all, define the goal of your outfit: shocking everyone, appear more available, it's your choice.</li>
+            <li>Then, choose the style and add an image to illustrate the most your idea.</li>
+            <li>Add more detail with the color set. Not more than 4.</li>
+            <li>Select the special accessories that will help you better on your goal.</li>
+          </ol>
+          <p>Finally, save them, and download the PDF.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Block 4 -->
+    <section class="guide-block block-4" data-reveal-target="section">
+      <div class="guide-content center">
+        <h2>Inspiration starts here.</h2>
+        <p>Not sure where to begin? Discovery lets you explore other users’ creations, connect, and collaborate.</p>
+        <ul style="list-style-type: none;">
+          <li>Browse styles from people with skills you admire</li>
+          <li>Chat directly with them</li>
+          <li>Request an outfit designed just for you</li>
+        </ul>
+        <%= link_to "Go to Discovery", discovery_path, class: "btn btn-flat" %>
+      </div>
+    </section>
   </div>
 <% end %>
