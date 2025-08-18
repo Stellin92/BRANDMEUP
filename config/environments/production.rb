@@ -8,7 +8,7 @@ Rails.application.configure do
   config.enable_reloading = false
 
   # Asset pour styliser les PDF
-  # config.action_controller.asset_host = "https://www.brandmeup.net"
+  config.action_controller.asset_host = "https://www.brandmeup.net"
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers

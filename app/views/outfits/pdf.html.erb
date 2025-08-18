@@ -15,17 +15,6 @@
       <%= image_tag wicked_pdf_asset_base64("logo_diamond.png"), alt: "Brand Me Up", class: "logo" rescue image_tag("logo.png", class: "logo", alt: "Brand Me Up") %>
     </div>
 
-
-
-
-
-
-
-
-        Expand All
-
-    @@ -30,9 +29,9 @@
-
     <h1 class="bm-header__title">Brand Me Up</h1>
     <div class="bm-header__logo">
       <%= image_tag wicked_pdf_asset_base64("logo_diamond.png"), alt: "Brand Me Up", class: "logo" rescue image_tag("logo.png", class: "logo", alt: "Brand Me Up") %>
@@ -36,28 +25,15 @@
     <!-- Colonne gauche : grande image -->
     <div class="bm-main-photo">
       <% if @outfit.photo&.attached? %>
-        <%= wicked_pdf_image_tag url_for(@outfit.photo), alt: (@outfit.title.presence || "Outfit photo") %>
+        <%= wicked_pdf_image_tag(
+              rails_blob_url(@outfit.photo, host: request.host_with_port, protocol: request.protocol),
+              alt: (@outfit.title.presence || "Outfit photo")
+            ) %>
       <% elsif @outfit.respond_to?(:photo_url) && @outfit.photo_url.present? %>
         <%= wicked_pdf_image_tag @outfit.photo_url, alt: (@outfit.title.presence || "Outfit photo") %>
       <% else %>
         <div class="bm-photo--placeholder">No photo</div>
       <% end %>
-
-
-
-
-
-
-
-          Expand Down
-
-
-
-
-
-          Expand Up
-
-    @@ -100,3 +99,4 @@
 
     </div>
     <!-- Colonne droite : cartes d’info -->

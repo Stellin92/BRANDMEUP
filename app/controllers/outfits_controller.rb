@@ -12,8 +12,10 @@ class OutfitsController < ApplicationController
     skip_policy_scope
   end
 
-    def show
+  def show
     authorize @outfit
+
+    # --- Réponse MODAL (reste sur la page user) ---
     if params[:modal].present?
       render partial: "outfits/modal", locals: { outfit: @outfit }
       return
@@ -24,13 +26,18 @@ class OutfitsController < ApplicationController
 
       format.pdf do
         render pdf: "outfit_#{@outfit.id}",
-               template: "outfits/pdf",   # vue dédiée PDF
-               layout: "pdf",             # layout PDF
-               encoding: "UTF-8",
-               page_size: "A4",
-               margin: { top: 12, bottom: 12, left: 12, right: 12 },
-               footer: { right: "Page [page] / [toPage]" },
-               disable_smart_shrinking: true
+              template: "outfits/pdf",   # => app/views/outfits/pdf.html.erb
+              formats:  [:html],         # <= important !
+              layout:   "pdf",           # => app/views/layouts/pdf.html.erb
+              encoding: "UTF-8",
+              disable_smart_shrinking: false,
+              zoom: 1.0,
+              viewport_size: "1280x1024",
+              print_media_type: true,
+              background: true,
+              page_size: "A4",
+              margin: { top: 12, bottom: 12, left: 12, right: 12 },
+              footer: { right: "Page [page] / [toPage]" }
       end
     end
 

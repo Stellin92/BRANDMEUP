@@ -15,7 +15,7 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   # Asset pour styliser les PDF
-  config.action_controller.asset_host = "http://localhost:3000"
+  # config.action_controller.asset_host = "http://localhost:3000"
 
 
   # Enable server timing

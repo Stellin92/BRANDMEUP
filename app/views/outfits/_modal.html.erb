@@ -56,9 +56,11 @@
                       turbo_frame: "_top"},
                     class: "btn btn-beta" %>
         <%= link_to "Download PDF",
-                    outfit_path(@outfit, format: :pdf),
-                    class: "btn btn-flat",
-                    data: { turbo: false } %>
+            outfit_path(outfit, format: :pdf),
+            data: { turbo: false },   # évite que Turbo l’ouvre dans le frame
+            target: "_blank",         # ouvre dans un nouvel onglet
+            rel: "noopener",          # bonne pratique sécurité
+            class: "btn btn-flat" %>
       <% end %>
 
 
